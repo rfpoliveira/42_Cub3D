@@ -115,7 +115,7 @@ int	valid_rgb(char **map)
 	int	x;
 
 	y = -1;
-	while (map[++y][x])
+	while (map[++y])
 	{
 		x = -1;
 		while (map[y][++x])
@@ -155,7 +155,8 @@ int	map_check(char *file, t_data **data)
 	}
 	if (!valid_rgb(map))
 		return (0);
-	if (!valid_map(map))
-		return (0);
+	/*if (!valid_map(map))*/
+	/*	return (0);*/
+(void) data;
 	return (1);
 }
