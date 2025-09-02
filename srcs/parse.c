@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/cube.h"
+#include "../incs/cube.h"
 #include <fcntl.h>
 
 int	extension_finder(char *file)
@@ -133,7 +133,7 @@ int	valid_rgb(char **map)
 	return (0);
 }
 
-int	map_check(char *file)
+int	map_check(char *file, t_data **data)
 {
 	int		fd;
 	int		y;

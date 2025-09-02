@@ -89,7 +89,7 @@ typedef struct s_calc_vars
 
 typedef struct s_data
 {
-	int **worldMap;
+	char	**worldMap;
 	void	*mlx;
 	void	*win;
 	double	pos_X;
@@ -156,6 +156,14 @@ void	fps_counter(t_data *data);
 //memory
 int		ft_exit(t_data *data);
 
+//parsing
+int		skip_spaces(char *str);
+int		check_digit(char *str);
+int		check_rgb(char *str);
+int		valid_rgb(char **map);
+int		map_size(char *file);
+int		valid_file(char *file);
+int		map_check(char *file, t_data **data);
 
 
 #endif
