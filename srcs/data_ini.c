@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/04 16:15:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/06 11:14:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static void	vars_ini(t_data *data)
 	data->vars->win_w = (int)screenWidth;
 	data->vars->win_h = (int)screenHeight;
 	data->delta_time = 0;
-	data->dir_vec_X = 0;
-	data->dir_vec_Y = -1;
-	data->plane_X = -0.66;
-	data->plane_Y = 0;
+	data->dir_vec_X = -1;
+	data->dir_vec_Y = 0;
+	data->plane_X = 0;
+	data->plane_Y = 0.66;
 	data->vars->side_X = 0;
 	data->vars->side_Y = 0;
 }

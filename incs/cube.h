@@ -149,6 +149,7 @@ int		enemy_hit(t_data *data, int mapX, int mapY);
 void	draw_enemies(t_data *data);
 void	order_enemies(t_data *data);
 void	enemy_count(t_data *data);
+void	take_enemy_out(t_data *data, int enemy_dead);
 
 //fps
 void	fps_counter(t_data *data);

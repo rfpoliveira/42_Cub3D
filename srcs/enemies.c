@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 11:10:01 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/04 17:21:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:17:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	position_n_distance(t_data *data)
 	int	j;
 	t_enemy *tmp;
 
+	if (data->numb_of_enemies <= 0)
+		return ;
 	i = -1;
 	j = -1;
 	tmp = data->enemies;
@@ -28,12 +30,14 @@ static void	position_n_distance(t_data *data)
 		{
 			if (data->worldMap[i][j] == 2)
 			{
-				tmp->pos_x = (double)i + 0.5;
-				tmp->pos_y = (double)j + 0.5;
+				tmp->pos_x = i;
+				tmp->pos_y = j;
 				tmp->distance = 
-					sqrt(pow((data->pos_X - tmp->pos_x), 2) +
-                	pow(data->pos_Y - tmp->pos_y, 2));
+					pow((data->pos_X - tmp->pos_x), 2) +
+                	pow((data->pos_Y - tmp->pos_y), 2);
 				tmp = tmp->next;
+				if (!tmp)
+					return ;
 			}	
 		}
 	} 
@@ -45,28 +49,28 @@ static void	alloc_enemy_list(t_data *data)
 	t_enemy *new;
 	t_enemy *current;
 	
-	i = -1;
-	current = NULL;
+	i = 0;
 	new = NULL;
+	current = NULL;
 	data->enemies = NULL;
+	if (data->numb_of_enemies > 0)
+	{
+		current = malloc(sizeof(t_enemy));
+		current->id = i;
+		current->enemy_hp = 4;
+		current->next = NULL;
+		current->prev = NULL;
+		data->enemies = current;
+	}
 	while (++i < data->numb_of_enemies)
 	{
 		new = malloc(sizeof(t_enemy));
 		new->id = i;
 		new->enemy_hp = 4;
 		new->next = NULL;
-		new->prev = NULL;
-		if (current == NULL)
-		{
-			current = new;
-			data->enemies = new;
-		}
-		else
-		{
-			current->next = new;
-			new->prev = current;
-			current = current->next;
-		}
+		new->prev = current;
+		current->next = new;
+		current = current->next;
 	}
 }
 
@@ -86,21 +90,21 @@ int	enemy_hit(t_data *data, int mapX, int mapY)
 	t_enemy *current;
 
 	current = data->enemies;
-	while (current->next != NULL)
+	while (current != NULL)
 	{
 		if (current->pos_x == mapX 
 			&& current->pos_y == mapY)
 		{
 			current->enemy_hp--;
 			data->shoot_flag = 1;
-			if (current->enemy_hp == 0)
-				return  (0);
+			if (current->enemy_hp <= 0)
+				return  (current->id);
 			else
-				return (1);
-			current = current->next;
+				return (-1);
 		}
+		current = current->next;
 	}
-	return (1);
+	return (-1);
 }
 
 void draw_enemies(t_data *data)
@@ -123,11 +127,16 @@ void draw_enemies(t_data *data)
 	int d;
 	uint32_t color;
 	
+	if (data->numb_of_enemies <= 0)
+		return ;
 	data->draw->tex_h = 64;
 	data->draw->tex_w = 64;
+	position_n_distance(data);
+	order_enemies(data);
 	current = data->enemies; 
 	while (current != NULL)
 	{
+
 		sprite_X = (current->pos_x + 0.5) - data->pos_X;
 		sprite_Y = (current->pos_y + 0.5) - data->pos_Y;
 		inv = 1.0 / (data->plane_X * data->dir_vec_Y - data->dir_vec_X * data->plane_Y);
@@ -143,7 +152,7 @@ void draw_enemies(t_data *data)
 			data->draw->end = screenHeight - 1;
 		sprite_w = fabs((int)screenHeight / trans_y);
 		draw_start_x = -sprite_w / 2 + sprite_screen_x;
-      	if(draw_start_x < 0) 
+		if(draw_start_x < 0) 
 			draw_start_x = 0;
 		draw_end_x = sprite_w / 2 + sprite_screen_x;
 		if (draw_end_x >= screenWidth)
@@ -151,7 +160,7 @@ void draw_enemies(t_data *data)
 		vertical = draw_start_x - 1;
 		while (++vertical < draw_end_x)
 		{
-			texture_x = (int)(256 * (vertical - (-sprite_w / 2 + sprite_screen_x) * data->draw->tex_w / sprite_w) / 256);
+			texture_x = (int)(256 * (vertical - (-sprite_w / 2 + sprite_screen_x)) * data->draw->tex_w / sprite_w) / 256;
 			if (trans_y > 0 && vertical > 0 && vertical < screenWidth && trans_y < data->buffer_z[vertical])
 			{
 				y = data->draw->start - 1;
@@ -160,8 +169,8 @@ void draw_enemies(t_data *data)
 					d = y * 256 - screenHeight * 128 + sprite_h * 128;
 					texture_y = ((d * data->draw->tex_h) / sprite_h) / 256;
 					color = *(uint32_t*)(data->draw->textures[4].addr +
-                        texture_y * data->draw->textures[4].line_len +
-                        texture_x * (data->draw->textures[4].bpp / 8));
+						texture_y * data->draw->textures[4].line_len +
+						texture_x * (data->draw->textures[4].bpp / 8));
 					if (color != 0xFFFFFF)
 						my_mlx_pixel_put(data->draw->img_buffer, vertical, y, color);
 				}

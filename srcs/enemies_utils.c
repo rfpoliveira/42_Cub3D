@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 14:14:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/04 11:19:21 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:24:29 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,37 @@
 void order_enemies(t_data *data)
 {
 	t_enemy *current;
-	t_enemy *tmp;
+	t_enemy *prev;
+	t_enemy *next;
+	int swapped;
 
-	current = data->enemies;
-	tmp = NULL;
-	while(current->next)
+	if (data->numb_of_enemies <= 0)
+		return ;
+ 
+	swapped = 1;
+	while (swapped)
 	{
-		if (current->distance < current->next->distance)
+		swapped = 0;
+		current = data->enemies;
+		prev = NULL;
+
+		while(current->next)
 		{
-			tmp = current;
+			if (current->distance < current->next->distance)
+			{
+				next = current->next;
+				current->next = next->next;
+				next->next = current;
+				if (prev == NULL)
+					data->enemies = next;
+				else
+					prev->next = next;
+				swapped = 1;
+				current = next;
+			}
+			prev = current;
 			current = current->next;
-			tmp->next = current->next;
-			current->prev = tmp->prev;
-			tmp->prev = current;
-			if (current->next)
-				current->next->prev = tmp;
-			current->next = tmp;
 		}
-		else
-			current = current->next;
 	}
 }
 
@@ -56,4 +68,29 @@ void	enemy_count(t_data *data)
 		}
 	}
 	data->numb_of_enemies = count;
+}
+
+void	take_enemy_out(t_data *data, int enemy_dead)
+{
+	t_enemy *current;
+	t_enemy *tmp;
+
+	current = data->enemies;
+	tmp = current;
+	while(current != NULL)
+	{
+		if (current->id == enemy_dead)
+		{
+			tmp->next = current->next;
+			data->worldMap[(int)(current->pos_x)][(int)(current->pos_y)] = 0;
+			data->numb_of_enemies--;
+			if (current == data->enemies)
+				data->enemies = data->enemies->next;
+			free(current);
+			current = NULL;
+			return ;
+		}
+		tmp = current;
+		current = current->next;
+	}
 }
