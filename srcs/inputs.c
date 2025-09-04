@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:27:31 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/29 14:45:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:43:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,20 @@ int	key_release(int keycode, t_data *data)
 	return (0);
 }
 
+void	press_5(t_data *data, double rot)
+{
+    double	old_Dir;
+	double	old_PlaneX;
+
+	old_Dir = data->dir_vec_x;
+	data->dir_vec_x = data->dir_vec_x * cos(-rot)\
+	 - data->dir_vec_y * sin(-rot);
+	data->dir_vec_y = old_Dir * sin(-rot)\
+	 + data->dir_vec_y * cos(-rot);
+	old_PlaneX = data->plane_x;
+	data->plane_x = data->plane_x * cos(-rot) - data->plane_y * sin(-rot);
+	data->plane_y = old_PlaneX * sin(-rot) + data->plane_y * cos(rot);
+}
 
 /**
 	@brief calculates movespeed and rotspeed to make the movement smoother
@@ -81,71 +95,21 @@ int	key_release(int keycode, t_data *data)
  */
 void	handle_inputs(t_data *data)
 {
-	double movespeed = 5.0 * data->delta_time;
-	double rotspeed = 3.0 * data->delta_time;
-	double	old_Dir;
-	double	old_PlaneX;
-	
+	double movespeed;
+	double rotspeed;
+
+	movespeed = 5.0 * data->delta_time;
+	rotspeed = 3.0 * data->delta_time;
 	if (data->controls[0])
-	{
-		if (data->worldMap[(int)(data->pos_X + data->dir_vec_X * movespeed)][(int)data->pos_Y] == 0
-			&& data->worldMap[(int)((data->pos_X + data->dir_vec_X * movespeed) + 0.1)][(int)(data->pos_Y + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X + data->dir_vec_X * movespeed) - 0.1)][(int)(data->pos_Y + 0.1)] == 0)
-			data->pos_X += data->dir_vec_X * movespeed;
-		if (data->worldMap[(int)(data->pos_X)][(int)(data->pos_Y + data->dir_vec_Y * movespeed)] == 0
-			&& data->worldMap[(int)((data->pos_X) + 0.1)][(int)((data->pos_Y + data->dir_vec_Y * movespeed) + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X) - 0.1)][(int)((data->pos_Y + data->dir_vec_Y * movespeed) - 0.1)] == 0)
-			data->pos_Y += data->dir_vec_Y * movespeed;
-	}
+		press_0(data, movespeed);
 	if (data->controls[1])
-	{
-		if (data->worldMap[(int)(data->pos_X - data->dir_vec_X * movespeed)][(int)data->pos_Y] == 0
-			&& data->worldMap[(int)((data->pos_X - data->dir_vec_X * movespeed) + 0.1)][(int)(data->pos_Y + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X - data->dir_vec_X * movespeed) - 0.1)][(int)(data->pos_Y - 0.1)] == 0)
-			data->pos_X += -data->dir_vec_X * movespeed;
-		if (data->worldMap[(int)(data->pos_X)][(int)(data->pos_Y - data->dir_vec_Y * movespeed)] == 0
-			&& data->worldMap[(int)((data->pos_X) + 0.1)][(int)((data->pos_Y - data->dir_vec_Y * movespeed) + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X) - 0.1)][(int)((data->pos_Y - data->dir_vec_Y * movespeed) - 0.1)] == 0)
-			data->pos_Y += -data->dir_vec_Y * movespeed;
-	}
+		press_1(data, movespeed);
 	if (data->controls[2])
-	{
-		if (data->worldMap[(int)(data->pos_X + (-data->dir_vec_Y) * movespeed)][(int)data->pos_Y] == 0
-			&& data->worldMap[(int)((data->pos_X + (-data->dir_vec_Y) * movespeed) + 0.1)][(int)(data->pos_Y + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X + (-data->dir_vec_Y) * movespeed) - 0.1)][(int)(data->pos_Y - 0.1)] == 0)
-			data->pos_X += (-data->dir_vec_Y) * movespeed;
-		if (data->worldMap[(int)(data->pos_X)][(int)(data->pos_Y + data->dir_vec_X * movespeed)] == 0
-			&& data->worldMap[(int)((data->pos_X) + 0.1)][(int)((data->pos_Y + data->dir_vec_X * movespeed) + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X) - 0.1)][(int)((data->pos_Y + data->dir_vec_X * movespeed) - 0.1)] == 0)
-			data->pos_Y += data->dir_vec_X * movespeed;
-	}
+		press_2(data, movespeed);
 	if (data->controls[3])
-	{
-		if (data->worldMap[(int)(data->pos_X + data->dir_vec_Y * movespeed)][(int)data->pos_Y] == 0
-			&& data->worldMap[(int)((data->pos_X + data->dir_vec_Y * movespeed) + 0.1)][(int)(data->pos_Y + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X + data->dir_vec_Y * movespeed) - 0.1)][(int)(data->pos_Y - 0.1)] == 0)
-			data->pos_X += data->dir_vec_Y * movespeed;
-		if (data->worldMap[(int)(data->pos_X)][(int)(data->pos_Y + (-data->dir_vec_Y) * movespeed)] == 0
-			&& data->worldMap[(int)((data->pos_X) + 0.1)][(int)((data->pos_Y + (-data->dir_vec_Y) * movespeed) + 0.1)] == 0
-			&& data->worldMap[(int)((data->pos_X) - 0.1)][(int)((data->pos_Y + (-data->dir_vec_Y) * movespeed) - 0.1)] == 0)
-			data->pos_Y += -(data->dir_vec_X) * movespeed;
-	}
+		press_3(data, movespeed);
 	if(data->controls[4])
-	{
-		old_Dir = data->dir_vec_X;
-		data->dir_vec_X = data->dir_vec_X * cos(rotspeed) - data->dir_vec_Y * sin(rotspeed);
-		data->dir_vec_Y = old_Dir * sin(rotspeed) + data->dir_vec_Y * cos(rotspeed);
-		old_PlaneX = data->plane_X;
-		data->plane_X = data->plane_X * cos(rotspeed) - data->plane_Y * sin(rotspeed);
-		data->plane_Y = old_PlaneX * sin(rotspeed) + data->plane_Y * cos(rotspeed);
-	}
+		press_4(data, rotspeed);
 	if(data->controls[5])
-	{
-		old_Dir = data->dir_vec_X;
-		data->dir_vec_X = data->dir_vec_X * cos(-rotspeed) - data->dir_vec_Y * sin(-rotspeed);
-		data->dir_vec_Y = old_Dir * sin(-rotspeed) + data->dir_vec_Y * cos(-rotspeed);
-		old_PlaneX = data->plane_X;
-		data->plane_X = data->plane_X * cos(-rotspeed) - data->plane_Y * sin(-rotspeed);
-		data->plane_Y = old_PlaneX * sin(-rotspeed) + data->plane_Y * cos(rotspeed);
-	}
+		press_5(data, rotspeed);
 }

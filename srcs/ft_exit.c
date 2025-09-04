@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:31:45 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/06 12:15:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:46:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ void	free_lst(t_enemy *enemies)
 	anywhere it is called
  */
 
+void ft_free_util(t_data *data)
+{
+	if (data->draw->img_buffer)
+		free(data->draw->img_buffer);
+	if (data->draw->minimap)
+		free(data->draw->minimap);
+	if (data->vars)
+		free(data->vars);
+	if (data->draw)
+		free(data->draw);
+	if (data->drawing_vars)
+		free(data->drawing_vars);
+	if (data)
+		free(data);
+}
+ 
 int	ft_exit(t_data *data)
 {
 	int i;
@@ -44,21 +60,11 @@ int	ft_exit(t_data *data)
 	if (data->numb_of_enemies > 0)
 		free_lst(data->enemies);
 	i = -1;
-	if (data->worldMap)
+	if (data->worldmap)
 	{
-		while (++i < mapWidth)
-			free(data->worldMap[i]);
-		free(data->worldMap);
+		while (++i < MAPWIDTH)
+			free(data->worldmap[i]);
+		free(data->worldmap);
 	}
-	if (data->draw->img_buffer)
-		free(data->draw->img_buffer);
-	if (data->draw->minimap)
-		free(data->draw->minimap);
-	if (data->vars)
-		free(data->vars);
-	if (data->draw)
-		free(data->draw);
-	if (data)
-		free(data);
 	exit(0);
 }

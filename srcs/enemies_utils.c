@@ -6,45 +6,49 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 14:14:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/06 12:24:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:46:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
 
+void	enemies_swap(t_data *data, t_enemy **curr, t_enemy **prev, t_enemy **next)
+{
+	*next = (*curr)->next;
+	(*curr)->next = (*next)->next;
+	(*next)->next = *curr;
+	if (*prev == NULL)
+		data->enemies = *next;
+	else
+		(*prev)->next = *next;
+	*curr = *next;
+}
+
 void order_enemies(t_data *data)
 {
-	t_enemy *current;
+	t_enemy *curr;
 	t_enemy *prev;
 	t_enemy *next;
 	int swapped;
 
 	if (data->numb_of_enemies <= 0)
 		return ;
- 
+	next = NULL;
 	swapped = 1;
 	while (swapped)
 	{
 		swapped = 0;
-		current = data->enemies;
+		curr = data->enemies;
 		prev = NULL;
-
-		while(current->next)
+		while(curr->next)
 		{
-			if (current->distance < current->next->distance)
+			if (curr->distance < curr->next->distance)
 			{
-				next = current->next;
-				current->next = next->next;
-				next->next = current;
-				if (prev == NULL)
-					data->enemies = next;
-				else
-					prev->next = next;
+				enemies_swap(data, &curr, &prev, &next);
 				swapped = 1;
-				current = next;
 			}
-			prev = current;
-			current = current->next;
+			prev = curr;
+			curr = curr->next;
 		}
 	}
 }
@@ -58,12 +62,12 @@ void	enemy_count(t_data *data)
 	i = -1;
 	j = -1;
 	count = 0;
-	while (++i < mapWidth)
+	while (++i < MAPWIDTH)
 	{
 		j = -1;
-		while (++j < mapHeight)
+		while (++j < MAPHEIGHT)
 		{
-			if (data->worldMap[i][j] == 2)
+			if (data->worldmap[i][j] == 2)
 				count++;	
 		}
 	}
@@ -82,7 +86,7 @@ void	take_enemy_out(t_data *data, int enemy_dead)
 		if (current->id == enemy_dead)
 		{
 			tmp->next = current->next;
-			data->worldMap[(int)(current->pos_x)][(int)(current->pos_y)] = 0;
+			data->worldmap[(int)(current->pos_x)][(int)(current->pos_y)] = 0;
 			data->numb_of_enemies--;
 			if (current == data->enemies)
 				data->enemies = data->enemies->next;

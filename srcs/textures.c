@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/04 11:33:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:56:25 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 	geographical orientation then get the color of the exact pixel we want
 	from that texture and puts in the buffer
  */
+
+static uint32_t get_color (t_data *data, int tex_Y, int texture_idx)
+{
+	return(*(uint32_t*)(data->draw->textures[texture_idx].addr +
+			tex_Y * data->draw->textures[texture_idx].line_len +
+			data->vars->texture_x * 
+			(data->draw->textures[texture_idx].bpp / 8)));
+}
+
 static void	texture_selector_walls(t_data *data, double step, double pos_tex, int x)
 {
 	int y;
@@ -27,20 +36,18 @@ static void	texture_selector_walls(t_data *data, double step, double pos_tex, in
 	y = data->draw->start - 1;
 	while (++y < data->draw->end)
 	{
-		tex_Y = (int)pos_tex & ((int)texture_h - 1);
- 		if (data->worldMap[data->vars->mapX][data->vars->mapY] != 1)
+		tex_Y = (int)pos_tex & ((int)TEXTURE_H - 1);
+ 		if (data->worldmap[data->vars->mapx][data->vars->mapy] != 1)
 			return ;
-		if (data->vars->side_hit == 0 && data->vars->dir_stepX == -1)
+		if (data->vars->side_hit == 0 && data->vars->dir_stepx == -1)
 			texture_idx = 0;
-		else if (data->vars->side_hit == 0 && data->vars->dir_stepX == 1)
+		else if (data->vars->side_hit == 0 && data->vars->dir_stepx == 1)
 			texture_idx = 1;
-		else if (data->vars->side_hit == 1 && data->vars->dir_stepY == -1)
+		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == -1)
 			texture_idx = 2;
-		else if (data->vars->side_hit == 1 && data->vars->dir_stepY == 1)
+		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
 			texture_idx = 3;
-		color = *(uint32_t*)(data->draw->textures[texture_idx].addr +
-			tex_Y * data->draw->textures[texture_idx].line_len +
-			data->vars->texture_X * (data->draw->textures[texture_idx].bpp / 8));
+		color = get_color(data, tex_Y, texture_idx);
 		pos_tex += step;
 		my_mlx_pixel_put(data->draw->img_buffer, x, y, color);
 	}
@@ -49,23 +56,26 @@ static void	texture_selector_walls(t_data *data, double step, double pos_tex, in
 	@brief calculates the correct piece of texture we need to input in place with the
 	right height considering distance and the window
  */
-void	calculate_texture_X(t_data *data, int x)
+void	calculate_texture_x(t_data *data, int x)
 {
 	double	step;
 	double	pos_tex;
 
 	if (data->vars->side_hit == 0)
-		data->vars->wall_X = data->pos_Y + data->vars->wall_dist * data->vars->ray_DirY;
+		data->vars->wall_x = data->pos_y + data->vars->wall_dist 
+		* data->vars->ray_diry;
 	else
-		data->vars->wall_X = data->pos_X + data->vars->wall_dist * data->vars->ray_DirX;
-	data->vars->wall_X -= floor(data->vars->wall_X);
-	data->vars->texture_X = (int)(data->vars->wall_X * (double)texture_w);
-	if (data->vars->side_hit == 0 && data->vars->ray_DirX > 0)
-		data->vars->texture_X = texture_w - data->vars->texture_X - 1;
-	if (data->vars->side_hit == 1 && data->vars->ray_DirY < 0)
-		data->vars->texture_X = texture_w - data->vars->texture_X - 1;
-	step = 1.0 * texture_h / data->draw->line_h;
-	pos_tex = (data->draw->start - data->vars->win_h / 2 + data->draw->line_h / 2) * step;
+		data->vars->wall_x = data->pos_x + data->vars->wall_dist 
+		* data->vars->ray_dirx;
+	data->vars->wall_x -= floor(data->vars->wall_x);
+	data->vars->texture_x = (int)(data->vars->wall_x * (double)TEXTURE_W);
+	if (data->vars->side_hit == 0 && data->vars->ray_dirx > 0)
+		data->vars->texture_x = TEXTURE_W - data->vars->texture_x - 1;
+	if (data->vars->side_hit == 1 && data->vars->ray_diry < 0)
+		data->vars->texture_x = TEXTURE_W - data->vars->texture_x - 1;
+	step = 1.0 * TEXTURE_H / data->draw->line_h;
+	pos_tex = (data->draw->start - data->vars->win_h / 2
+		 + data->draw->line_h / 2) * step;
 	texture_selector_walls(data, step, pos_tex, x);
 }
 
@@ -110,7 +120,7 @@ void	ini_texture(t_data *data)
 	i = -1;
 	img = data->draw;
 	texture_to_image(data);
-	while(++i < (int)tex_numb)
+	while(++i < (int)TEX_NUMB)
 	{
 		img->textures[i].addr = mlx_get_data_addr(
 			img->textures[i].img, 

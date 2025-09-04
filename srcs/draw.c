@@ -6,22 +6,14 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:32:17 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/29 14:45:44 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:18:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
 
-void	draw_gun(t_data *data)
+void	gun_frame_select(t_data *data)
 {
-	int i;
-	int j;
-	t_img gun;
-	uint32_t color;
-
-	i = -1;
-	j = -1;
-
  	if (data->controls[7])
 	{
 		data->gun_animation++;
@@ -43,6 +35,19 @@ void	draw_gun(t_data *data)
 			data->gun_animation = 0;
 		}
 	}
+}
+
+void	draw_gun(t_data *data)
+{
+	int i;
+	int j;
+	t_img gun;
+	uint32_t color;
+
+	i = -1;
+	j = -1;
+
+	gun_frame_select(data);
 	gun = data->draw->textures[data->draw->gun_txt_idx];
 	while (++i < 256)
 	{
@@ -51,7 +56,7 @@ void	draw_gun(t_data *data)
 		{
 		color = *(uint32_t*)(gun.addr + (j * gun.line_len + i * (gun.bpp / 8)));
 		if (color != 0xFFFFFF)
-			my_mlx_pixel_put(data->draw->img_buffer, i + (screenWidth / 2 - 128), j + (screenHeight - 256), color); 
+			my_mlx_pixel_put(data->draw->img_buffer, i + (SCREENWIDTH / 2 - 128), j + (SCREENHEIGHT - 256), color); 
 		}
 	}
 }
@@ -83,7 +88,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *dst;
 
-	 if (x < 0 || x >= (int)screenWidth || y < 0 || y >= (int)screenHeight)
+	 if (x < 0 || x >= (int)SCREENWIDTH || y < 0 || y >= (int)SCREENHEIGHT)
         return;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;

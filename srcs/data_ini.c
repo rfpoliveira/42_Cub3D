@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/06 11:14:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/04 19:30:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	controls_ini(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < (int)cntls_numb)
+	while (++i < (int)CNTLS_NUMB)
 		data->controls[i] = false;
 }
 
@@ -32,11 +32,10 @@ static void	controls_ini(t_data *data)
 	win_w and h are the windowns dimensions
 	delta_time is the time of the last frame to make sure the movement 
 	is independent of the fps
-	dir_vec_X and Y are the direction vectors
+	dir_vec_x and Y are the direction vectors
 	plane X and Y is the pov (screen)
-	side_X and Y are TODO
+	side_x and Y are TODO
 */
-
 /*direcoes: norte: y = -1 / planex = 0.66
 			sul:  y = 1 / planeX = -0.66
 			este: x = 1 /planey = 0.66
@@ -44,38 +43,41 @@ static void	controls_ini(t_data *data)
 */
 static void	vars_ini(t_data *data)
 {
-	data->pos_X = 22;
-	data->pos_Y = 12;
+	data->pos_x = 22;
+	data->pos_y = 12;
 	data->curr_time = 0;
 	data->old_time = 0;
-	data->vars->win_w = (int)screenWidth;
-	data->vars->win_h = (int)screenHeight;
+	data->vars->win_w = (int)SCREENWIDTH;
+	data->vars->win_h = (int)SCREENHEIGHT;
 	data->delta_time = 0;
-	data->dir_vec_X = -1;
-	data->dir_vec_Y = 0;
-	data->plane_X = 0;
-	data->plane_Y = 0.66;
-	data->vars->side_X = 0;
-	data->vars->side_Y = 0;
+	data->dir_vec_x = -1;
+	data->dir_vec_y = 0;
+	data->plane_x = 0;
+	data->plane_y = 0.66;
+	data->vars->side_x = 0;
+	data->vars->side_y = 0;
 }
 
 /**
 	@brief inicializes some variables we need to draw the frames
 
 	the img_buffer will store every pixel we get from the raycasting
-	end and start are the pixel we start and end to form the line with the raycasting
-	line_h is the height of that line
+	end and start are the pixel we start and end to form the line with
+	the raycasting line_h is the height of that line
 	tex_h and tex_w are the dimensions in pixel of the textures
  */
 static void	draw_ini(t_data *data)
 {
-	data->draw->img_buffer->img = mlx_new_image(data->mlx, data->vars->win_w, data->vars->win_h);
+	data->minimap_w = (SCREENWIDTH / 8);
+	data->minimap_h = (SCREENHEIGHT / 8 * (SCREENWIDTH / SCREENHEIGHT));
+	data->draw->img_buffer->img = mlx_new_image(data->mlx,
+			data->vars->win_w, data->vars->win_h);
 	if (!(data->draw->img_buffer->img))
 		ft_exit(data);
 	data->draw->img_buffer->addr = mlx_get_data_addr(
-		data->draw->img_buffer->img, 
-		&data->draw->img_buffer->bpp, 
-		&data->draw->img_buffer->line_len, 
+		data->draw->img_buffer->img,
+		&data->draw->img_buffer->bpp,
+		&data->draw->img_buffer->line_len,
 		&data->draw->img_buffer->endian);
 	if (!(data->draw->img_buffer->addr))
 		ft_exit(data);
@@ -84,12 +86,16 @@ static void	draw_ini(t_data *data)
 	data->draw->line_h = 0;
 	data->draw->tex_h = 64;
 	data->draw->tex_w = 64;
-	data->draw->minimap_startx = (int)screenWidth / 20;
-	data->draw->minimap_starty = (int)screenHeight - (int)screenHeight / 20 - (int)minimap_h;
+	data->draw->minimap_startx = (int)SCREENWIDTH / 20;
+	data->draw->minimap_starty = (int)SCREENHEIGHT - (int)SCREENHEIGHT
+		/ 20 - data->minimap_h;
 }
 static void	window_ini(t_data *data)
 {
-	data->win = mlx_new_window(data->mlx, (int)screenWidth, (int)screenHeight, "Cub3d da Nasa");
+	data->win = mlx_new_window(data->mlx, 
+							(int)SCREENWIDTH, 
+							(int)SCREENHEIGHT, 
+							"Cub3d da Nasa");
 	if (!(data->win))
 		ft_exit(data);
 }
@@ -99,7 +105,7 @@ static void	window_ini(t_data *data)
 
 void	data_ini(t_data *data)
 {
-	int worldMap[mapWidth][mapHeight]=
+	int worldmap[MAPWIDTH][MAPHEIGHT]=
 	{
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -126,12 +132,12 @@ void	data_ini(t_data *data)
 	{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
-	data->worldMap = malloc(sizeof(int *) * mapWidth);
-	for (int i = 0; i < mapWidth; i++) 
+	data->worldmap = malloc(sizeof(int *) * MAPWIDTH);
+	for (int i = 0; i < MAPWIDTH; i++) 
 	{
-    	data->worldMap[i] = malloc(sizeof(int) * mapHeight);
-    	for (int j = 0; j < mapHeight; j++) {
-       		data->worldMap[i][j] = worldMap[i][j];
+    	data->worldmap[i] = malloc(sizeof(int) * MAPHEIGHT);
+    	for (int j = 0; j < MAPHEIGHT; j++) {
+       		data->worldmap[i][j] = worldmap[i][j];
     }
 	}
 	data->mlx = mlx_init();
@@ -145,11 +151,12 @@ void	data_ini(t_data *data)
 	data->draw->img_buffer = malloc(sizeof(t_img));
 	if (!data->draw->img_buffer)
 		ft_exit(data);
-	data->buffer_z = malloc(sizeof(double) * screenWidth);
+	data->buffer_z = malloc(sizeof(double) * SCREENWIDTH);
 	vars_ini(data);
 	controls_ini(data);
 	draw_ini(data);
 	ini_texture(data);
 	ini_minimap(data);
 	enemies_ini(data);
+	ene_drawing_ini(data);
 }
