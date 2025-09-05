@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:27:31 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:43:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:39:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ int	key_press(int keycode, t_data *data)
 	else if (keycode == XK_Right)
 		data->controls[5] = true;
 	else if (keycode == XK_m)
-	{
-		if (data->controls[6] == true)
-			data->controls[6] = false;
-		else
-			data->controls[6] = true;
-	}
+		data->controls[6] = true;
 	else if (keycode == XK_space)
 	{
 		data->controls[7] = true;
@@ -64,6 +59,8 @@ int	key_release(int keycode, t_data *data)
 		data->controls[4] = false;
 	else if (keycode == XK_Right)
 		data->controls[5] = false;
+	else if (keycode == XK_m)
+		data->controls[6] = false;
 	else if (keycode == XK_space)
 	{
 		data->controls[7] = false;
@@ -75,17 +72,17 @@ int	key_release(int keycode, t_data *data)
 
 void	press_5(t_data *data, double rot)
 {
-    double	old_Dir;
-	double	old_PlaneX;
+	double	old_dir;
+	double	old_planex;
 
-	old_Dir = data->dir_vec_x;
-	data->dir_vec_x = data->dir_vec_x * cos(-rot)\
-	 - data->dir_vec_y * sin(-rot);
-	data->dir_vec_y = old_Dir * sin(-rot)\
-	 + data->dir_vec_y * cos(-rot);
-	old_PlaneX = data->plane_x;
+	old_dir = data->dir_vec_x;
+	data->dir_vec_x = data->dir_vec_x * cos(-rot)
+		- data->dir_vec_y * sin(-rot);
+	data->dir_vec_y = old_dir * sin(-rot)
+		+ data->dir_vec_y * cos(-rot);
+	old_planex = data->plane_x;
 	data->plane_x = data->plane_x * cos(-rot) - data->plane_y * sin(-rot);
-	data->plane_y = old_PlaneX * sin(-rot) + data->plane_y * cos(rot);
+	data->plane_y = old_planex * sin(-rot) + data->plane_y * cos(rot);
 }
 
 /**
@@ -95,8 +92,8 @@ void	press_5(t_data *data, double rot)
  */
 void	handle_inputs(t_data *data)
 {
-	double movespeed;
-	double rotspeed;
+	double	movespeed;
+	double	rotspeed;
 
 	movespeed = 5.0 * data->delta_time;
 	rotspeed = 3.0 * data->delta_time;
@@ -108,8 +105,8 @@ void	handle_inputs(t_data *data)
 		press_2(data, movespeed);
 	if (data->controls[3])
 		press_3(data, movespeed);
-	if(data->controls[4])
+	if (data->controls[4])
 		press_4(data, rotspeed);
-	if(data->controls[5])
+	if (data->controls[5])
 		press_5(data, rotspeed);
 }

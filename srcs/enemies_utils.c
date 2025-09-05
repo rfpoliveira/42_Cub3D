@@ -6,30 +6,30 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 14:14:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:46:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:14:52 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
 
-void	enemies_swap(t_data *data, t_enemy **curr, t_enemy **prev, t_enemy **next)
+void	enemies_swap(t_data *dt, t_enemy **curr, t_enemy **prv, t_enemy **nxt)
 {
-	*next = (*curr)->next;
-	(*curr)->next = (*next)->next;
-	(*next)->next = *curr;
-	if (*prev == NULL)
-		data->enemies = *next;
+	*nxt = (*curr)->next;
+	(*curr)->next = (*nxt)->next;
+	(*nxt)->next = *curr;
+	if (*prv == NULL)
+		dt->enemies = *nxt;
 	else
-		(*prev)->next = *next;
-	*curr = *next;
+		(*prv)->next = *nxt;
+	*curr = *nxt;
 }
 
-void order_enemies(t_data *data)
+void	order_enemies(t_data *data)
 {
-	t_enemy *curr;
-	t_enemy *prev;
-	t_enemy *next;
-	int swapped;
+	t_enemy	*curr;
+	t_enemy	*prev;
+	t_enemy	*next;
+	int		swapped;
 
 	if (data->numb_of_enemies <= 0)
 		return ;
@@ -40,7 +40,7 @@ void order_enemies(t_data *data)
 		swapped = 0;
 		curr = data->enemies;
 		prev = NULL;
-		while(curr->next)
+		while (curr->next)
 		{
 			if (curr->distance < curr->next->distance)
 			{
@@ -55,9 +55,9 @@ void order_enemies(t_data *data)
 
 void	enemy_count(t_data *data)
 {
-	int i;
+	int	i;
 	int	j;
-	int count;
+	int	count;
 
 	i = -1;
 	j = -1;
@@ -68,7 +68,7 @@ void	enemy_count(t_data *data)
 		while (++j < MAPHEIGHT)
 		{
 			if (data->worldmap[i][j] == 2)
-				count++;	
+				count++;
 		}
 	}
 	data->numb_of_enemies = count;
@@ -76,12 +76,12 @@ void	enemy_count(t_data *data)
 
 void	take_enemy_out(t_data *data, int enemy_dead)
 {
-	t_enemy *current;
-	t_enemy *tmp;
+	t_enemy	*current;
+	t_enemy	*tmp;
 
 	current = data->enemies;
 	tmp = current;
-	while(current != NULL)
+	while (current != NULL)
 	{
 		if (current->id == enemy_dead)
 		{

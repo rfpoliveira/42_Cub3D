@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:56:25 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:54:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@
 	from that texture and puts in the buffer
  */
 
-static uint32_t get_color (t_data *data, int tex_Y, int texture_idx)
+static uint32_t	get_color(t_data *data, int tex_Y, int texture_idx)
 {
-	return(*(uint32_t*)(data->draw->textures[texture_idx].addr +
-			tex_Y * data->draw->textures[texture_idx].line_len +
-			data->vars->texture_x * 
-			(data->draw->textures[texture_idx].bpp / 8)));
+	return (*(uint32_t *)(data->draw->textures[texture_idx].addr
+		+ tex_Y * data->draw->textures[texture_idx].line_len
+		+ data->vars->texture_x
+		* (data->draw->textures[texture_idx].bpp / 8)));
 }
 
-static void	texture_selector_walls(t_data *data, double step, double pos_tex, int x)
+static void	text_selec_wall(t_data *data, double step, double pos_tex, int x)
 {
-	int y;
-	int texture_idx;
-	uint32_t color;
-	int	tex_Y;
-	
+	int			y;
+	int			texture_idx;
+	uint32_t	color;
+	int			tex_y;
+
 	y = data->draw->start - 1;
 	while (++y < data->draw->end)
 	{
-		tex_Y = (int)pos_tex & ((int)TEXTURE_H - 1);
- 		if (data->worldmap[data->vars->mapx][data->vars->mapy] != 1)
+		tex_y = (int)pos_tex & ((int)TEXTURE_H - 1);
+		if (data->worldmap[data->vars->mapx][data->vars->mapy] != 1)
 			return ;
 		if (data->vars->side_hit == 0 && data->vars->dir_stepx == -1)
 			texture_idx = 0;
@@ -47,13 +47,15 @@ static void	texture_selector_walls(t_data *data, double step, double pos_tex, in
 			texture_idx = 2;
 		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
 			texture_idx = 3;
-		color = get_color(data, tex_Y, texture_idx);
+		color = get_color(data, tex_y, texture_idx);
 		pos_tex += step;
 		my_mlx_pixel_put(data->draw->img_buffer, x, y, color);
 	}
 }
+
 /**
-	@brief calculates the correct piece of texture we need to input in place with the
+	@brief calculates the correct piece of texture we
+	need to input in place with the
 	right height considering distance and the window
  */
 void	calculate_texture_x(t_data *data, int x)
@@ -62,11 +64,11 @@ void	calculate_texture_x(t_data *data, int x)
 	double	pos_tex;
 
 	if (data->vars->side_hit == 0)
-		data->vars->wall_x = data->pos_y + data->vars->wall_dist 
-		* data->vars->ray_diry;
+		data->vars->wall_x = data->pos_y + data->vars->wall_dist
+			* data->vars->ray_diry;
 	else
-		data->vars->wall_x = data->pos_x + data->vars->wall_dist 
-		* data->vars->ray_dirx;
+		data->vars->wall_x = data->pos_x + data->vars->wall_dist
+			* data->vars->ray_dirx;
 	data->vars->wall_x -= floor(data->vars->wall_x);
 	data->vars->texture_x = (int)(data->vars->wall_x * (double)TEXTURE_W);
 	if (data->vars->side_hit == 0 && data->vars->ray_dirx > 0)
@@ -75,8 +77,8 @@ void	calculate_texture_x(t_data *data, int x)
 		data->vars->texture_x = TEXTURE_W - data->vars->texture_x - 1;
 	step = 1.0 * TEXTURE_H / data->draw->line_h;
 	pos_tex = (data->draw->start - data->vars->win_h / 2
-		 + data->draw->line_h / 2) * step;
-	texture_selector_walls(data, step, pos_tex, x);
+			+ data->draw->line_h / 2) * step;
+	text_selec_wall(data, step, pos_tex, x);
 }
 
 /**
@@ -84,27 +86,28 @@ void	calculate_texture_x(t_data *data, int x)
  */
 static void	texture_to_image(t_data *data)
 {
-	data->draw->textures[0].img = mlx_xpm_file_to_image(data->mlx, "textures/bluestone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[0].img))
-		ft_exit(data);
-	data->draw->textures[1].img = mlx_xpm_file_to_image(data->mlx, "textures/colorstone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[1].img))
-		ft_exit(data);
-	data->draw->textures[2].img = mlx_xpm_file_to_image(data->mlx, "textures/greystone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[2].img))
-		ft_exit(data);
-	data->draw->textures[3].img = mlx_xpm_file_to_image(data->mlx, "textures/mossy.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[3].img))
-		ft_exit(data);
-	data->draw->textures[4].img = mlx_xpm_file_to_image(data->mlx, "textures/demon.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[4].img))
-		ft_exit(data);
-	data->draw->textures[5].img = mlx_xpm_file_to_image(data->mlx, "textures/gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[5].img))
-		ft_exit(data);	
-	data->draw->textures[6].img = mlx_xpm_file_to_image(data->mlx, "textures/shoot_gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	if (!(data->draw->textures[6].img))
-		ft_exit(data);	
+	int	i;
+
+	data->draw->textures[0].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/bluestone.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[1].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/colorstone.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[2].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/greystone.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[3].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/mossy.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[4].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/demon.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[5].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[6].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/shoot_gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	i = -1;
+	while (++i < TEX_NUMB)
+	{
+		if (!(data->draw->textures[i].img))
+			ft_exit(data);
+	}
 }
 
 /**
@@ -114,19 +117,19 @@ static void	texture_to_image(t_data *data)
  */
 void	ini_texture(t_data *data)
 {
-	int	i;
-	t_draw_calc *img;
+	int			i;
+	t_draw_calc	*img;
 
 	i = -1;
 	img = data->draw;
 	texture_to_image(data);
-	while(++i < (int)TEX_NUMB)
+	while (++i < (int)TEX_NUMB)
 	{
 		img->textures[i].addr = mlx_get_data_addr(
-			img->textures[i].img, 
-			&img->textures[i].bpp, 
-			&img->textures[i].line_len, 
-			&img->textures[i].endian);
+				img->textures[i].img,
+				&img->textures[i].bpp,
+				&img->textures[i].line_len,
+				&img->textures[i].endian);
 		if (!(img->textures[i].addr))
 			ft_exit(data);
 	}

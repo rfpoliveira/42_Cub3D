@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:02:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:46:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:42:16 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	ini_minimap(t_data *data)
 {
-	t_img *map;
+	t_img	*map;
 
 	data->draw->minimap = malloc(sizeof(t_img));
 	if (!data->draw->minimap)
 		ft_exit(data);
 	map = data->draw->minimap;
 	map->img = mlx_new_image(data->mlx, data->minimap_w, data->minimap_h);
-	map->addr = 
-		mlx_get_data_addr(map->img, &map->bpp, &map->line_len, &map->endian);
+	map->addr = mlx_get_data_addr(
+			map->img, &map->bpp, &map->line_len, &map->endian);
 	if (!(map->addr))
 		ft_exit(data);
 }
 
 void	draw_player(t_data *data)
 {
-	int px;
-	int py;
-	double scale;
-	int	i;
-	int	j;
-	
+	int		px;
+	int		py;
+	double	scale;
+	int		i;
+	int		j;
+
 	i = -1;
 	j = -1;
 	scale = (double)MAPWIDTH / (double)data->minimap_w;
@@ -46,7 +46,6 @@ void	draw_player(t_data *data)
 		while (++j < data->minimap_h / 20)
 			my_mlx_pixel_put(data->draw->minimap, px + i, py + j, 0x00FF00);
 	}
-	
 }
 
 void	put_minimap_pixel(t_data *data, int i, int j, double scale)
@@ -65,9 +64,9 @@ void	put_minimap_pixel(t_data *data, int i, int j, double scale)
 
 void	draw_minimap(t_data *data)
 {
-	int i;
-	int j;
-	double scale;
+	int		i;
+	int		j;
+	double	scale;
 
 	scale = (double)MAPWIDTH / (double)data->minimap_w;
 	i = -1;
@@ -79,6 +78,6 @@ void	draw_minimap(t_data *data)
 			put_minimap_pixel(data, i, j, scale);
 	}
 	draw_player(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->draw->minimap->img, 
+	mlx_put_image_to_window(data->mlx, data->win, data->draw->minimap->img,
 		data->draw->minimap_startx, data->draw->minimap_starty);
 }

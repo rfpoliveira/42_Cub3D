@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:19:56 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:46:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:01:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@ void	put_values(t_data *data, int i, int j, t_enemy *tmp)
 {
 	tmp->pos_x = i;
 	tmp->pos_y = j;
-	tmp->distance = 
-		pow((data->pos_x - tmp->pos_x), 2) +
-        pow((data->pos_y - tmp->pos_y), 2);
+	tmp->distance = pow((data->pos_x - tmp->pos_x), 2)
+		+ pow((data->pos_y - tmp->pos_y), 2);
 }
 
 void	position_n_distance(t_data *data)
 {
-	int i;
-	int	j;
-	t_enemy *tmp;
+	int		i;
+	int		j;
+	t_enemy	*tmp;
 
 	if (data->numb_of_enemies <= 0)
 		return ;
-    tmp = NULL;
+	tmp = NULL;
 	i = -1;
 	j = -1;
 	tmp = data->enemies;
@@ -44,17 +43,17 @@ void	position_n_distance(t_data *data)
 				tmp = tmp->next;
 				if (!tmp)
 					return ;
-			}	
+			}
 		}
-	} 
+	}
 }
 
 void	alloc_enemy_list(t_data *data)
 {
-	int i;
-	t_enemy *new;
-	t_enemy *current;
-	
+	int		i;
+	t_enemy	*new;
+	t_enemy	*current;
+
 	i = 0;
 	if (data->numb_of_enemies > 0)
 	{

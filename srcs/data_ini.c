@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 19:30:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 13:58:33 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	draw_ini(t_data *data)
 	data->minimap_w = (SCREENWIDTH / 8);
 	data->minimap_h = (SCREENHEIGHT / 8 * (SCREENWIDTH / SCREENHEIGHT));
 	data->draw->img_buffer->img = mlx_new_image(data->mlx,
-			data->vars->win_w, data->vars->win_h);
+	data->vars->win_w, data->vars->win_h);
 	if (!(data->draw->img_buffer->img))
 		ft_exit(data);
 	data->draw->img_buffer->addr = mlx_get_data_addr(
@@ -135,10 +135,9 @@ void	data_ini(t_data *data)
 	data->worldmap = malloc(sizeof(int *) * MAPWIDTH);
 	for (int i = 0; i < MAPWIDTH; i++) 
 	{
-    	data->worldmap[i] = malloc(sizeof(int) * MAPHEIGHT);
-    	for (int j = 0; j < MAPHEIGHT; j++) {
-       		data->worldmap[i][j] = worldmap[i][j];
-    }
+		data->worldmap[i] = malloc(sizeof(int) * MAPHEIGHT);
+		for (int j = 0; j < MAPHEIGHT; j++)
+			data->worldmap[i][j] = worldmap[i][j];
 	}
 	data->mlx = mlx_init();
 	if (!(data->mlx))

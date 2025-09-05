@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:32:17 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 17:18:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:10:41 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	gun_frame_select(t_data *data)
 {
- 	if (data->controls[7])
+	if (data->controls[7])
 	{
 		data->gun_animation++;
 		if (data->draw->gun_txt_idx == 6)
@@ -39,14 +39,13 @@ void	gun_frame_select(t_data *data)
 
 void	draw_gun(t_data *data)
 {
-	int i;
-	int j;
-	t_img gun;
-	uint32_t color;
+	int			i;
+	int			j;
+	t_img		gun;
+	uint32_t	color;
 
 	i = -1;
 	j = -1;
-
 	gun_frame_select(data);
 	gun = data->draw->textures[data->draw->gun_txt_idx];
 	while (++i < 256)
@@ -54,9 +53,12 @@ void	draw_gun(t_data *data)
 		j = -1;
 		while (++j < 256)
 		{
-		color = *(uint32_t*)(gun.addr + (j * gun.line_len + i * (gun.bpp / 8)));
-		if (color != 0xFFFFFF)
-			my_mlx_pixel_put(data->draw->img_buffer, i + (SCREENWIDTH / 2 - 128), j + (SCREENHEIGHT - 256), color); 
+			color = *(uint32_t *)(gun.addr + (j * gun.line_len + i
+						* (gun.bpp / 8)));
+			if (color != 0xFFFFFF)
+				my_mlx_pixel_put(data->draw->img_buffer, i
+					+ (SCREENWIDTH / 2 - 128), j
+					+ (SCREENHEIGHT - 256), color);
 		}
 	}
 }
@@ -67,9 +69,9 @@ void	draw_gun(t_data *data)
  */
 void	calculate_lines(t_data *data)
 {
-	t_draw_calc *draw;
-	t_calc_vars *vars;
-	
+	t_draw_calc	*draw;
+	t_calc_vars	*vars;
+
 	draw = data->draw;
 	vars = data->vars;
 	draw->line_h = (int)(vars->win_h / vars->wall_dist);
@@ -82,16 +84,17 @@ void	calculate_lines(t_data *data)
 }
 
 /**
-	@brief this function copies the correct pixels from the textures to the buffer
+	@brief this function copies the correct pixels 
+	from the textures to the buffer
  */
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
-	 if (x < 0 || x >= (int)SCREENWIDTH || y < 0 || y >= (int)SCREENHEIGHT)
-        return;
+	if (x < 0 || x >= (int)SCREENWIDTH || y < 0 || y >= (int)SCREENHEIGHT)
+		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 /**
@@ -100,8 +103,8 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	clear_img(t_data *data, int ceiling_color, int floor_color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	j = -1;

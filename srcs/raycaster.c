@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:02:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 19:25:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:42:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,29 @@
  */
 void	reset_vars(t_data *data)
 {
-		data->vars->hit = 0;
-		data->vars->mapx = (int)data->pos_x;
-		data->vars->mapy = (int)data->pos_y;
-		data->vars->camera_x = 0;
-		data->vars->ray_dirx = 0;
-		data->vars->ray_diry = 0;
-		data->vars->next_x = 0;
-		data->vars->next_y = 0;
-		data->vars->dir_stepx = 0;
-		data->vars->dir_stepy = 0;
-		data->vars->side_hit = 0;
-		data->vars->wall_dist = 0;
-		data->vars->side_x = 0;
-		data->vars->side_y = 0;
+	data->vars->hit = 0;
+	data->vars->mapx = (int)data->pos_x;
+	data->vars->mapy = (int)data->pos_y;
+	data->vars->camera_x = 0;
+	data->vars->ray_dirx = 0;
+	data->vars->ray_diry = 0;
+	data->vars->next_x = 0;
+	data->vars->next_y = 0;
+	data->vars->dir_stepx = 0;
+	data->vars->dir_stepy = 0;
+	data->vars->side_hit = 0;
+	data->vars->wall_dist = 0;
+	data->vars->side_x = 0;
+	data->vars->side_y = 0;
 }
+
 /**
 	@brief main raycasting loop calling many helper functions
 	to make all the needed calculacions 
  */
 void	raycaster(t_data *data)
 {
-	int x;
+	int	x;
 
 	x = -1;
 	while (++x < SCREENWIDTH)

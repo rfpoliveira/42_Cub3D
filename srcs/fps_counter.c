@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:05:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 16:14:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:19:21 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
  */
 void	fps_counter(t_data *data)
 {
-	double frametime;
-	char *display;
-	char *buff;
+	double			frametime;
+	char			*display;
+	char			*buff;
+	struct timeval	tv;
 
 	frametime = 0;
-	struct	timeval tv;
 	gettimeofday(&tv, NULL);
 	data->old_time = data->curr_time;
 	data->curr_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
