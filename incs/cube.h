@@ -115,7 +115,7 @@ typedef struct s_data
 #============================================================================*/
 
 //inicializacion
-void	data_ini(t_data *data);
+void	data_ini(char *file, t_data *data);
 void	ini_texture(t_data *data);
 
 //inputs

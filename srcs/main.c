@@ -39,15 +39,16 @@ int	parse(char *file, t_data **data)
 {
 	if (!valid_file(file))
 	{
-		free(data);
+		if (*data)
+			free(*data);
 		ft_putstr_fd("Error\nInvalid arguments or file\n", 2);
 		return (0);
 	}
-	if (!map_check(file, data))
-	{
-		ft_putstr_fd("Error\nInvalid map\n", 2);
-		return (0);
-	}
+	/*if (!map_check(file, data))*/
+	/*{*/
+	/*	ft_putstr_fd("Error\nInvalid map\n", 2);*/
+	/*	return (0);*/
+	/*}*/
 	return (1);
 }
 
@@ -65,13 +66,7 @@ int main (int ac, char **av)
 		ft_exit(data);
 	if (!parse(av[1], &data))
 		ft_exit(data);
-	int i = -1;
-	while (data->worldMap[++i])
-	{
-		printf("%s\n", data->worldMap[i]);
-	}
-	ft_exit(data);
-	data_ini(data);
+	data_ini(av[1], data);
 	mlx_hook(data->win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win, 17, 1L << 17, ft_exit, data);

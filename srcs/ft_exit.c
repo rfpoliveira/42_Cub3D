@@ -22,7 +22,7 @@ int	ft_exit(t_data *data)
 	int i;
 
 	i = -1;
-	while(++i < 4)
+	while(data->mlx && i < 4)
 		mlx_destroy_image(data->mlx, data->draw->textures[i].img);
 	if (data->draw->img_buffer->img)
 		mlx_destroy_image(data->mlx, data->draw->img_buffer->img);

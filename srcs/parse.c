@@ -35,7 +35,7 @@ int	map_size(char *file)
 	{
 		free(temp);
 		temp = NULL;
-		get_next_line(fd);
+		temp = get_next_line(fd);
 		size++;
 	}
 	return (size);
@@ -53,6 +53,7 @@ int	valid_file(char *file)
 		|| (!ft_strnstr(&file[size - 4], ".cub", size)
 			&& file[size + 1] != '\0'))
 		return (0);	
+	printf("here %d\n", map_len);
 	return (map_len > 8);
 }
 
@@ -130,7 +131,7 @@ int	valid_rgb(char **map)
 				break ;
 		}
 	}
-	return (0);
+	return (1);
 }
 
 int	map_check(char *file, t_data **data)
@@ -148,6 +149,7 @@ int	map_check(char *file, t_data **data)
 	temp = get_next_line(fd);
 	while (temp)
 	{
+		
 		free(temp);
 		temp = NULL;
 		temp = get_next_line(fd);
