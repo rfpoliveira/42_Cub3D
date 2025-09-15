@@ -48,24 +48,78 @@ t_point	get_point(char **map, char c)
 	return (p);
 }
 
-void	floodfill(char **map, t_point size, int col, int row)
+int	col_len(char **map, int x)
 {
+	int	i;
+	int	j;
+	t_point	p;
+
+	p = get_point(map, '\0');
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j] && j != x)
+		{
+			if (x > p.x && i == p.y - 1)
+				return (i);	
+		}
+	}
+	return (i);
+}
+
+void	floodfill(char **map, int col, int row)
+{
+	t_point	size;
+
+	size.x = ft_strlen(map[col]);
+	size.y = col_len(map, size.x);
 	if (col < 0 || row < 0 || col > size.y || row > size.x)
 		return ;
 	if (map[col][row] == '2' || map[col][row] == '1')
 		return ;
 	map[col][row] = '2';
-	floodfill(map, size, col + 1, row);
-	floodfill(map, size, col - 1, row);
-	floodfill(map, size, col, row + 1);
-	floodfill(map, size, col, row - 1);
+	floodfill(map, col + 1, row);
+	floodfill(map, col - 1, row);
+	floodfill(map, col, row + 1);
+	floodfill(map, col, row - 1);
 }
 
-int	fill(char **map)
+int	check_fill(char **map)
 {
+	int	x;
+	int	y;
+
+	y = -1;
+	while (map[++y])
+	{
+	x = -1;
+		while (map[y][++x])
+			if (map[y][x] == '2' && (map[y - 1][x] != '1' || map[y][x - 1] != '1'
+				|| map[y + 1][x] != '1' || map[y][x + 1] != '1'
+				|| map[y - 1][x] != '2' || map[y][x - 1] != '2'
+				|| map[y + 1][x] != '2' || map[y][x + 1] != '2'
+				|| map[y - 1][x] != 'N' || map[y][x - 1] != 'N'
+				|| map[y + 1][x] != 'N' || map[y][x + 1] != 'N'))
+				return (0);
+	}
+	return (1);
+}
+
+int	fill(t_data *data)
+{
+	t_point	start;
 	char	**temp;
 	
+	start = get_point(data->worldMap, 'N');
 	temp = NULL;
-	temp = mapcpy(map); 
-
+	temp = mapcpy(data->worldMap);
+	if (!temp)
+		ft_exit(data);
+	floodfill(temp, start.y, start.x);
+	int	i = -1;
+	while (temp[++i])
+		printf("%s\n", temp[i]);
+	check_fill(temp);
+	return (0);
 }

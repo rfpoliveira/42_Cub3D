@@ -100,7 +100,7 @@ static void	window_ini(t_data *data)
 void	data_ini(char *file, t_data *data)
 {
 	if (!map_check(file, &data))
-		ft_exit(data);
+		exit(0);
 	data->mlx = mlx_init();
 	if (!(data->mlx))
 		ft_exit(data);
