@@ -101,6 +101,11 @@ void	data_ini(char *file, t_data *data)
 {
 	if (!map_check(file, &data))
 		ft_exit(data);
+	int	i;
+	i = -1;
+	while (data->worldMap[++i])
+		printf("mapa: %s", data->worldMap[i]);
+	exit(0);
 	data->mlx = mlx_init();
 	if (!(data->mlx))
 		ft_exit(data);

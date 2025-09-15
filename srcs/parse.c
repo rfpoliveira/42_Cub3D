@@ -134,6 +134,52 @@ int	valid_rgb(char **map)
 	return (1);
 }
 
+char	**valid_map(char **map)
+{
+	int	y;
+	int	x;
+	int	start;
+
+	y = -1;
+	start = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (skip_spaces(map[y]))
+				x = skip_spaces(map[y]);
+			if (start == -1 && map[y][x] == '1')
+				start = y;
+			if (map[y][x] == '1' || map[y][x] == '0'
+				|| map[y][x] == 'N')
+				continue ;
+			else if (start != -1)
+				return (NULL);
+		}
+	}
+	printf("start: %d\n", start);
+	printf("map: %s", map[start]);
+	return (mapcpy(&map[start]));
+}
+char **mapcpy(char **map)
+{
+	int		y;
+	char	**temp;
+
+	y = 0;
+	while (map[y])
+		++y;
+	temp = malloc(sizeof(char *) * (y + 1));
+	if (!temp)
+		return (NULL);
+	temp[y] = NULL;
+	y = -1;
+	while (map[++y])
+		temp[y] = ft_strdup(map[y]);	
+	return (temp);
+}
+
 int	map_check(char *file, t_data **data)
 {
 	int		fd;
@@ -144,12 +190,12 @@ int	map_check(char *file, t_data **data)
 
 	y = -1;
 	size = map_size(file);
+	map = NULL;
 	map = ft_calloc(sizeof(char *), size + 1);
 	fd = open(file, O_RDONLY);
 	temp = get_next_line(fd);
 	while (temp)
 	{
-		
 		free(temp);
 		temp = NULL;
 		temp = get_next_line(fd);
@@ -157,8 +203,12 @@ int	map_check(char *file, t_data **data)
 	}
 	if (!valid_rgb(map))
 		return (0);
-	/*if (!valid_map(map))*/
-	/*	return (0);*/
-(void) data;
+	(*data)->worldMap = valid_map(map);
+	int	i;
+	i = -1;
+	while (map[++i + 5])
+		printf("mapa: %s", map[i + 5]);
+	if (!(*data)->worldMap)
+		return (0);
 	return (1);
 }
