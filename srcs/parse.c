@@ -149,51 +149,51 @@ int	valid_rgb(char **map, t_data **data)
 	return (0);
 }
 
-char	**valid_map(char **map)
-{
-	int	y;
-	int	x;
-	int	start;
+// char	**valid_map(char **map)
+// {
+// 	int	y;
+// 	int	x;
+// 	int	start;
 
-	y = -1;
-	start = -1;
-	while (map[++y])
-	{
-		x = -1;
-		while (map[y][++x])
-		{
-			if (skip_spaces(map[y]))
-				x = skip_spaces(map[y]);
-			if (start == -1 && map[y][x] == '1')
-				start = y;
-			if (map[y][x] == '1' || map[y][x] == '0'
-				|| map[y][x] == 'N')
-				continue ;
-			else if (start != -1)
-				return (NULL);
-		}
-	}
-	printf("start: %d\n", start);
-	printf("map: %s", map[start]);
-	return (mapcpy(&map[start]));
-}
-char **mapcpy(char **map)
-{
-	int		y;
-	char	**temp;
+// 	y = -1;
+// 	start = -1;
+// 	while (map[++y])
+// 	{
+// 		x = -1;
+// 		while (map[y][++x])
+// 		{
+// 			if (skip_spaces(map[y]))
+// 				x = skip_spaces(map[y]);
+// 			if (start == -1 && map[y][x] == '1')
+// 				start = y;
+// 			if (map[y][x] == '1' || map[y][x] == '0'
+// 				|| map[y][x] == 'N')
+// 				continue ;
+// 			else if (start != -1)
+// 				return (NULL);
+// 		}
+// 	}
+// 	printf("start: %d\n", start);
+// 	printf("map: %s", map[start]);
+// 	return (mapcpy(&map[start]));
+// }
+// char **mapcpy(char **map)
+// {
+// 	int		y;
+// 	char	**temp;
 
-	y = 0;
-	while (map[y])
-		++y;
-	temp = malloc(sizeof(char *) * (y + 1));
-	if (!temp)
-		return (NULL);
-	temp[y] = NULL;
-	y = -1;
-	while (map[++y])
-		temp[y] = ft_strdup(map[y]);	
-	return (temp);
-}
+// 	y = 0;
+// 	while (map[y])
+// 		++y;
+// 	temp = malloc(sizeof(char *) * (y + 1));
+// 	if (!temp)
+// 		return (NULL);
+// 	temp[y] = NULL;
+// 	y = -1;
+// 	while (map[++y])
+// 		temp[y] = ft_strdup(map[y]);	
+// 	return (temp);
+// }
 
 char	**valid_map(char **map)
 {
