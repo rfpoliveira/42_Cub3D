@@ -101,10 +101,12 @@ typedef struct s_data
 	double	curr_time;
 	double	old_time;
 	double	delta_time;
-	int gun_animation;
-	int	shoot_flag;
+	int		f_rgb[3];
+	int		c_rgb[3];
+	int		gun_animation;
+	int		shoot_flag;
 	t_enemy *enemies;
-	int numb_of_enemies;
+	int		numb_of_enemies;
 	double	*buffer_z;
 	bool	controls[cntls_numb];
 	t_calc_vars *vars;
@@ -159,10 +161,13 @@ int		ft_exit(t_data *data);
 //parsing
 int		skip_spaces(char *str);
 int		check_digit(char *str);
-int		check_rgb(char *str);
-int		valid_rgb(char **map);
+int		check_rgb(char *str, t_data **data);
+int		valid_rgb(char **map, t_data **data);
 int		map_size(char *file);
 int		valid_file(char *file);
 int		map_check(char *file, t_data **data);
 char	**mapcpy(char **map);
+int		fill(t_data *data);
+char	**mapcpy(char **map);
+
 #endif

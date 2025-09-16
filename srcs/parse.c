@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
-#include <fcntl.h>
 
 int	extension_finder(char *file)
 {
@@ -38,6 +37,7 @@ int	map_size(char *file)
 		temp = get_next_line(fd);
 		size++;
 	}
+	close(fd);
 	return (size);
 }
 
@@ -53,7 +53,6 @@ int	valid_file(char *file)
 		|| (!ft_strnstr(&file[size - 4], ".cub", size)
 			&& file[size + 1] != '\0'))
 		return (0);	
-	printf("here %d\n", map_len);
 	return (map_len > 8);
 }
 
@@ -65,7 +64,7 @@ int	skip_spaces(char *line)
 	while (line[x] == ' ' && line[x] == '\t')
 		x++;
 	if (line[x] == '\n' || line[x] == '\0')
-		return (0);
+		return (-1);
 	else
 		return (x);
 }
@@ -78,13 +77,13 @@ int	check_digit(char *file)
 	while (file[x])
 		if (file[x] >= '0' && file[x] <= '9')
 			x++;
-	if (file[x] != ' ' || file[x] != '\t'
-		|| file[x] != '\n' || file[x] != ',')
-		return (0);
-	return (1);
+	if (file[x] == ' ' || file[x] == '\t'
+		|| file[x] == '\n' || file[x] == ',')
+		return (x);
+	return (0);
 }
 
-int	check_rgb(char *file)
+int	check_rgb(char *file, t_data **data)
 {
 	int	x;
 	int	n;
@@ -93,14 +92,30 @@ int	check_rgb(char *file)
 	n = 0;
 	while (file[++x])
 	{
-		if (!skip_spaces(file))
+		if (skip_spaces(file) == -1)
 			return (0);
 		x = skip_spaces(&file[x]);
-		if (file[x] == 'C' || file[x] == 'F')
-			++x;
-		if (!skip_spaces(&file[x]))
-			return (0);
-		if (!check_digit(&file[x]))
+		if (file[x] == 'C' && file[++x])
+		{
+			x = skip_spaces(&file[x]);
+			if (check_digit(&file[x]))
+			{
+				(*data)->c_rgb[0] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
+				x = check_digit(&file[x]);
+				x = skip_spaces(&file[x]);
+				if (file[x] == ',')
+					x++;
+				x = skip_spaces(&file[x]);
+				(*data)->c_rgb[1] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
+				x = check_digit(&file[x]);
+				x = skip_spaces(&file[x]);
+				if (file[x] == ',')
+					x++;
+				x = skip_spaces(&file[x]);
+				(*data)->c_rgb[2] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
+			}
+		}
+		if (skip_spaces(&file[x]) == -1 || !check_digit(&file[x]))
 			return (0);
 		if (file[x] == ',')
 			n++;
@@ -110,7 +125,7 @@ int	check_rgb(char *file)
 	return (1);
 }
 
-int	valid_rgb(char **map)
+int	valid_rgb(char **map, t_data **data)
 {
 	int	y;
 	int	x;
@@ -126,12 +141,58 @@ int	valid_rgb(char **map)
 			else
 				break ;
 			if (map[y][x] == 'C' || map[y][x] == 'F')
-				return (check_rgb(map[y]));
+				return (check_rgb(map[y], data));
 			else
 				break ;
 		}
 	}
-	return (1);
+	return (0);
+}
+
+char	**valid_map(char **map)
+{
+	int	y;
+	int	x;
+	int	start;
+
+	y = -1;
+	start = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (skip_spaces(map[y]))
+				x = skip_spaces(map[y]);
+			if (start == -1 && map[y][x] == '1')
+				start = y;
+			if (map[y][x] == '1' || map[y][x] == '0'
+				|| map[y][x] == 'N')
+				continue ;
+			else if (start != -1)
+				return (NULL);
+		}
+	}
+	printf("start: %d\n", start);
+	printf("map: %s", map[start]);
+	return (mapcpy(&map[start]));
+}
+char **mapcpy(char **map)
+{
+	int		y;
+	char	**temp;
+
+	y = 0;
+	while (map[y])
+		++y;
+	temp = malloc(sizeof(char *) * (y + 1));
+	if (!temp)
+		return (NULL);
+	temp[y] = NULL;
+	y = -1;
+	while (map[++y])
+		temp[y] = ft_strdup(map[y]);	
+	return (temp);
 }
 
 char	**valid_map(char **map)
@@ -201,7 +262,7 @@ int	map_check(char *file, t_data **data)
 		temp = get_next_line(fd);
 		map[++y] = ft_strdup(temp);
 	}
-	if (!valid_rgb(map))
+	if (!valid_rgb(map, data) || fill(*data))
 		return (0);
 	(*data)->worldMap = valid_map(map);
 	int	i;
