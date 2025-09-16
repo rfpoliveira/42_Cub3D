@@ -167,6 +167,6 @@ int		map_size(char *file);
 int		valid_file(char *file);
 int		map_check(char *file, t_data **data);
 int		fill(t_data *data);
-
+char	**mapcpy(char **map);
 
 #endif
