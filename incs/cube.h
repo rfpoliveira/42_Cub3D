@@ -169,5 +169,6 @@ int		map_check(char *file, t_data **data);
 char	**mapcpy(char **map);
 int		fill(t_data *data);
 char	**mapcpy(char **map);
+void	parse_exit(t_data *data);
 
 #endif

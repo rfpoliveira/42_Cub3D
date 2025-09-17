@@ -74,7 +74,7 @@ void	floodfill(char **map, int col, int row)
 
 	size.x = ft_strlen(map[col]);
 	size.y = col_len(map, size.x);
-	if (col < 0 || row < 0 || col > size.y || row > size.x)
+	if (col < 0 || row < 0 || col > size.y -1 || row > size.x -1)
 		return ;
 	if (map[col][row] == '2' || map[col][row] == '1')
 		return ;
