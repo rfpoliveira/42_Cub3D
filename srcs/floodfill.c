@@ -95,12 +95,12 @@ int	check_fill(char **map)
 	{
 	x = -1;
 		while (map[y][++x])
-			if (map[y][x] == '2' && (map[y - 1][x] != '1' || map[y][x - 1] != '1'
-				|| map[y + 1][x] != '1' || map[y][x + 1] != '1'
-				|| map[y - 1][x] != '2' || map[y][x - 1] != '2'
-				|| map[y + 1][x] != '2' || map[y][x + 1] != '2'
-				|| map[y - 1][x] != 'N' || map[y][x - 1] != 'N'
-				|| map[y + 1][x] != 'N' || map[y][x + 1] != 'N'))
+			if (map[y][x] == '2' && (map[y - 1][x] != '1' && map[y][x - 1] != '1'
+				&& map[y + 1][x] != '1' && map[y][x + 1] != '1'
+				&& map[y - 1][x] != '2' && map[y][x - 1] != '2'
+				&& map[y + 1][x] != '2' && map[y][x + 1] != '2'
+				&& map[y - 1][x] != 'N' && map[y][x - 1] != 'N'
+				&& map[y + 1][x] != 'N' && map[y][x + 1] != 'N'))
 				return (0);
 	}
 	return (1);
@@ -119,7 +119,6 @@ int	fill(t_data *data)
 	floodfill(temp, start.y, start.x);
 	int	i = -1;
 	while (temp[++i])
-		printf("%s\n", temp[i]);
-	check_fill(temp);
-	return (0);
+		printf("%s\n", temp[i]);	
+	return (check_fill(temp));
 }

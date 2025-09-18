@@ -34,6 +34,56 @@ int	valid_file(char *file)
 	return (map_len > 8);
 }
 
+void	f_rgb_set(char *file, t_data **data, int x)
+{
+	char *temp;
+
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->f_rgb[0] = ft_atoi(temp);
+	free(temp);
+	x += check_digit(&file[x]);
+	x += skip_spaces(&file[x]);
+	if (file[x] == ',')
+		x++;
+	x += skip_spaces(&file[x]);
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->f_rgb[1] = ft_atoi(temp);
+	free(temp);
+	x += check_digit(&file[x]);
+	x += skip_spaces(&file[x]);
+	if (file[x] == ',')
+		x++;
+	x += skip_spaces(&file[x]);
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->f_rgb[2] = ft_atoi(temp);
+	free(temp);
+}
+
+void	c_rgb_set(char *file, t_data **data, int x)
+{
+	char *temp;
+
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->c_rgb[0] = ft_atoi(temp);
+	free(temp);
+	x += check_digit(&file[x]);
+	x += skip_spaces(&file[x]);
+	if (file[x] == ',')
+		x++;
+	x += skip_spaces(&file[x]);
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->c_rgb[1] = ft_atoi(temp);
+	free(temp);
+	x += check_digit(&file[x]);
+	x += skip_spaces(&file[x]);
+	if (file[x] == ',')
+		x++;
+	x += skip_spaces(&file[x]);
+	temp = ft_substr(file, x, check_digit(&file[x]));
+	(*data)->c_rgb[2] = ft_atoi(temp);
+	free(temp);
+}
+
 int	check_rgb(char *file, t_data **data)
 {
 	int	x;
@@ -48,34 +98,16 @@ int	check_rgb(char *file, t_data **data)
 		x += skip_spaces(&file[x]);
 		if (file[x] == 'F' && file[++x])
 		{
-		printf("%c\n", file[x]);
 			x += skip_spaces(&file[x]);
-			if (check_digit(&file[x]) != -1)
-			{
-		printf("%c\n", file[x]);
-				(*data)->f_rgb[0] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
-				x += check_digit(&file[x]);
-				x += skip_spaces(&file[x]);
-		printf("%c\n", file[x]);
-				if (file[x] == ',')
-					x++;
-		printf("%c\n", file[x]);
-				x += skip_spaces(&file[x]);
-				(*data)->f_rgb[1] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
-				x += check_digit(&file[x]);
-				x += skip_spaces(&file[x]);
-				if (file[x] == ',')
-					x++;
-				x += skip_spaces(&file[x]);
-				printf("%s\n", &file[x]);
-				(*data)->f_rgb[2] = ft_atoi(ft_substr(file, x, check_digit(&file[x])));
-			}
+			f_rgb_set(file, data, x);
+		}
+		if (file[x] == 'C' && file[++x])
+		{
+			x += skip_spaces(&file[x]);
+			c_rgb_set(file, data, x);
 		}
 		if (file[x] == ',')
 			n++;
-		/*if (skip_spaces(&file[x]) == -1 || !check_digit(&file[x]))*/
-		/*	return (printf("here aaaaaaa\n"), 0);*/
-
 	}
 	printf("rgb[0] -\t%d\n", (*data)->f_rgb[0]);
 	printf("rgb[1] -\t%d\n", (*data)->f_rgb[1]);
@@ -141,6 +173,33 @@ char	**valid_map(char **map)
 	return (mapcpy(&map[start]));
 }
 
+int	char_check(char **map)
+{
+	int	y;
+	int	x;
+	int	n;
+
+	y = -1;
+	n = 0;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == '1' || map[y][x] == '0' || map[y][x] == 'N'
+				|| map[y][x] == ' ' || map[y][x] == '\t')
+			{
+				if (map[y][x] == 'N')
+					n++;
+				continue ;
+			}
+			else
+				return (0); 
+		}
+	}
+	return (n == 1);
+}
+
 int	map_check(char *file, t_data **data)
 {
 	int		fd;
@@ -155,19 +214,20 @@ int	map_check(char *file, t_data **data)
 	map = ft_calloc(sizeof(char *), size + 1);
 	fd = open(file, O_RDONLY);
 	temp = get_next_line(fd);
-	while (temp)
+	while (temp && y < size - 2)
 	{
 		free(temp);
 		temp = NULL;
 		temp = get_next_line(fd);
 		map[++y] = ft_strdup(temp);
+		map[y][(ft_strlen(map[y]) - 1)] = '\0';
 	}
 	(*data)->worldMap = valid_map(map);
-	/*int	i;*/
-	/*i = -1;*/
-	/*while ((*data)->worldMap[++i])*/
-	/*	printf("mapa: %s\n", (*data)->worldMap[i]);*/
-	if (!(*data)->worldMap || !valid_rgb(map, data) || !fill(*data))
+	int	i;
+	i = -1;
+	while ((*data)->worldMap[++i])
+		printf("mapa: %s\n", (*data)->worldMap[i]);
+	if (!(*data)->worldMap || !char_check((*data)->worldMap) || !valid_rgb(map, data) || !fill(*data))
 		return (0);
 	return (1);
 }

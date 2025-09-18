@@ -41,7 +41,10 @@ char **mapcpy(char **map)
 	temp[y] = NULL;
 	y = -1;
 	while (map[++y])
-		temp[y] = ft_substr(map[y], 0, ft_strlen(map[y]) - 1);	
+	{
+		temp[y] = ft_substr(map[y], 0, ft_strlen(map[y]));
+		temp[y][ft_strlen(map[y])] = '\0';
+	}
 	return (temp);
 }
 
@@ -66,12 +69,13 @@ int	check_digit(char *file)
 	x = -1;
 	n = 0;
 	while (file[++x])
+	{
 		if (file[x] >= '0' && file[x] <= '9')
-			n++;
-		
-	if (file[x] == ' ' || file[x] == '\t'
-		|| file[x] == '\n' || file[x] == ',')
-		return (n);
+			n++;	
+		if (file[x] == ' ' || file[x] == '\t'
+			|| file[x] == '\n' || file[x] == ',')
+			return (n);
+	}
 	return (-1);
 }
 
