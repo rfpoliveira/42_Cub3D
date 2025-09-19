@@ -95,13 +95,13 @@ int	check_fill(char **map)
 	{
 	x = -1;
 		while (map[y][++x])
-			if (map[y][x] == '2' && (map[y - 1][x] != '1' && map[y][x - 1] != '1'
-				&& map[y + 1][x] != '1' && map[y][x + 1] != '1'
-				&& map[y - 1][x] != '2' && map[y][x - 1] != '2'
-				&& map[y + 1][x] != '2' && map[y][x + 1] != '2'
-				&& map[y - 1][x] != 'N' && map[y][x - 1] != 'N'
-				&& map[y + 1][x] != 'N' && map[y][x + 1] != 'N'))
-				return (0);
+			if (map[y][x] == '2' && ((map[y - 1][x] == '1' && map[y][x - 1] == '1'
+				&& map[y + 1][x] == '1' && map[y][x + 1] == '1')
+				|| (map[y - 1][x] == '2' && map[y][x - 1] == '2'
+				&& map[y + 1][x] == '2' && map[y][x + 1] == '2')))
+				continue ;
+			else
+				return (printf("here\n"), 0);
 	}
 	return (1);
 }

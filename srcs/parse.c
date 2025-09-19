@@ -133,14 +133,12 @@ int	valid_rgb(char **map, t_data **data)
 				x = skip_spaces(map[y]);
 			/*else*/
 			/*	break ;*/
-			printf("x:\t%d\nline:\t%s\n", x, map[y]);
 			if (map[y][x] == 'C' || map[y][x] == 'F')
 				return (check_rgb(map[y], data));
 			else
 				break ;
 		}
 	}
-	printf("here\n");
 	return (0);
 }
 
