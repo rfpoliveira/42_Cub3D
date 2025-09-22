@@ -109,12 +109,7 @@ int	check_rgb(char *file, t_data **data)
 		if (file[x] == ',')
 			n++;
 	}
-	printf("rgb[0] -\t%d\n", (*data)->f_rgb[0]);
-	printf("rgb[1] -\t%d\n", (*data)->f_rgb[1]);
-	printf("rgb[2] -\t%d\n", (*data)->f_rgb[2]);
-	if (n > 3)
-		return (0);
-	return (1);
+	return (n < 4);
 }
 
 int	valid_rgb(char **map, t_data **data)
@@ -128,11 +123,8 @@ int	valid_rgb(char **map, t_data **data)
 		x = -1;
 		while (map[y][++x])
 		{
-			/*printf("here\n");*/
 			if (skip_spaces(map[y]) != -1)
 				x = skip_spaces(map[y]);
-			/*else*/
-			/*	break ;*/
 			if (map[y][x] == 'C' || map[y][x] == 'F')
 				return (check_rgb(map[y], data));
 			else
@@ -140,6 +132,49 @@ int	valid_rgb(char **map, t_data **data)
 		}
 	}
 	return (0);
+}
+
+void	set_text(char **map, t_data **data, int y, int x)
+{
+	char	*temp;
+
+	temp = NULL;
+	x += skip_spaces(&map[y][x]);
+	temp = ft_substr(map[y], x, ft_strlen(&map[y][x]));
+	if (mlx_xpm_file_to_image((*data)->mlx, temp, &(*data)->draw->tex_w,
+		&(*data)->draw->tex_h))
+		{
+			(*data)->draw->textures->img = mlx_xpm_file_to_image((*data)->mlx, temp,
+				&(*data)->draw->tex_w, &(*data)->draw->tex_h);
+		}
+	free(temp);
+}
+
+int	check_text(char **map, t_data **data)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	(*data)->draw->textures->img = NULL;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == 'N' && map[y][x + 1] == 'O')
+				set_text(map, data, y, x);
+			if (map[y][x] == 'S' && map[y][x + 1] == 'O')
+				set_text(map, data, y, x);
+			if (map[y][x] == 'W' && map[y][x + 1] == 'E')
+				set_text(map, data, y, x);
+			if (map[y][x] == 'E' && map[y][x + 1] == 'A')
+				set_text(map, data, y, x);
+		}
+	}
+	if (!(*data)->draw->textures->img)
+		return (0);
+	return (1);
 }
 
 char	**valid_map(char **map)
@@ -155,19 +190,17 @@ char	**valid_map(char **map)
 		x = -1;
 		while (map[y][++x])
 		{
-			if (skip_spaces(map[y]) != -1)
-				x += skip_spaces(map[y]);
+			if (skip_spaces(&map[y][x]) != -1)
+				x += skip_spaces(&map[y][x]);
 			if (start == -1 && (map[y][x] == 'C' || map[y][x] == 'F' || map[y][x] == 'S'
 				|| map[y][x] == 'N' || map[y][x] == 'W' || map[y][x] == 'E'))
 				break ;
 			if (start == -1 && map[y][x] == '1')
 				start = y;
-			if ((map[y][x] != '1' && map[y][x] != '0'
-				&& map[y][x] != 'N') && (skip_spaces(&map[y][x]) == -1
-				&& map[y][x] != '\n'))
-				return (NULL);
 		}
 	}
+	if (start == -1)
+		return (NULL);
 	return (mapcpy(&map[start]));
 }
 

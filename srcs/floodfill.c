@@ -74,9 +74,10 @@ void	floodfill(char **map, int col, int row)
 
 	size.x = ft_strlen(map[col]);
 	size.y = col_len(map, size.x);
-	if (col < 0 || row < 0 || col > size.y -1 || row > size.x -1)
+	if (col < 0 || row < 0 || col > size.y -1|| row > size.x -1)
 		return ;
-	if (map[col][row] == '2' || map[col][row] == '1')
+	if (map[col][row] == '2' || map[col][row] == '1'
+		|| map[col][row] == '\t' || map[col][row] == ' ')
 		return ;
 	map[col][row] = '2';
 	floodfill(map, col + 1, row);
@@ -95,12 +96,10 @@ int	check_fill(char **map)
 	{
 	x = -1;
 		while (map[y][++x])
-			if (map[y][x] == '2' && ((map[y - 1][x] == '1' && map[y][x - 1] == '1'
-				&& map[y + 1][x] == '1' && map[y][x + 1] == '1')
-				|| (map[y - 1][x] == '2' && map[y][x - 1] == '2'
-				&& map[y + 1][x] == '2' && map[y][x + 1] == '2')))
-				continue ;
-			else
+			if (map[y][x] == '2' && ((map[y - 1][x] != '1' && map[y - 1][x] != '2')
+				|| (map[y + 1][x] != '1' && map[y + 1][x] != '2')
+				|| (map[y][x - 1] != '1' && map[y][x - 1] != '2')
+				|| (map[y][x + 1] != '1' && map[y][x + 1] != '2')))
 				return (printf("here\n"), 0);
 	}
 	return (1);
