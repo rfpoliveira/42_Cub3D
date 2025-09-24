@@ -23,6 +23,21 @@ void	parse_exit(t_data *data)
 			free(data->worldMap[i]);
 		free(data->worldMap);
 	}
+	i = -1;
+	if (data->draw)
+	{
+		printf("AAAAAAAAAAAAAAAAA\n");
+		if (data->draw->textures[0].img)
+			while (data->draw->textures[++i].img) {
+				printf("BBBBBBBBBBBBBBBBBB\n");
+				free(data->draw->textures[i].img);}
+		if (data->draw)
+			free(data->draw);
+	}
+	if (data->mlx)
+		free(data->mlx);
+	if (data)
+		free(data);
 	ft_putstr_fd("Error\nInvalid map\n", 2);
 	exit(1);
 }

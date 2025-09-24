@@ -109,15 +109,24 @@ int	fill(t_data *data)
 {
 	t_point	start;
 	char	**temp;
+	int		i;
 	
 	start = get_point(data->worldMap, 'N');
 	temp = NULL;
+	i = -1;
 	temp = mapcpy(data->worldMap);
 	if (!temp)
 		ft_exit(data);
 	floodfill(temp, start.y, start.x);
-	int	i = -1;
-	while (temp[++i])
-		printf("%s\n", temp[i]);	
-	return (check_fill(temp));
+	if (check_fill(temp))
+	{
+		while (temp[++i])
+			free(temp[i]);
+		free(temp);
+		return (1);
+	}
+		while (temp[++i])
+			free(temp[i]);
+		free(temp);
+	return (0);
 }

@@ -161,8 +161,9 @@ int		ft_exit(t_data *data);
 //parsing
 int		skip_spaces(char *str);
 int		check_digit(char *str);
+int		check_text(char **map, t_data **data);
 int		check_rgb(char *str, t_data **data);
-int		valid_rgb(char **map, t_data **data);
+int		valid_rgb(char **map, t_data **data, int check);
 int		map_size(char *file);
 int		valid_file(char *file);
 int		map_check(char *file, t_data **data);
@@ -170,5 +171,13 @@ char	**mapcpy(char **map);
 int		fill(t_data *data);
 char	**mapcpy(char **map);
 void	parse_exit(t_data *data);
+int		extension_finder(char *file);
+void	free_map(char **map);
+void	cpy_file(char ***map, char *file, int size);
+void	set_text(char **map, t_data **data, int y, int x);
+void	f_rgb_set(char *file, t_data **data, int x);
+void	c_rgb_set(char *file, t_data **data, int x);
+int		check_rgb(char *file, t_data **data);
+int		ft_strchrlen(char *s, char c);
 
 #endif

@@ -99,19 +99,19 @@ static void	window_ini(t_data *data)
 
 void	data_ini(char *file, t_data *data)
 {
+	data->mlx = mlx_init();
+	if (!(data->mlx))
+		ft_exit(data);
+	data->draw = ft_calloc(sizeof(t_draw_calc), 1);
 	if (!map_check(file, &data))
 		parse_exit(data);
 	/*int	i;*/
 	/*i = -1;*/
 	/*while (data->worldMap[++i])*/
 	/*	printf("mapa: %s", data->worldMap[i]);*/
-	exit(0);
-	data->mlx = mlx_init();
-	if (!(data->mlx))
-		ft_exit(data);
+	parse_exit(data);
 	window_ini(data);
 	data->vars = malloc(sizeof(t_calc_vars));
-	data->draw = malloc(sizeof(t_draw_calc));
 	if (!data->vars || !data->draw)
 		ft_exit(data);
 	data->draw->img_buffer = malloc(sizeof(t_img));
