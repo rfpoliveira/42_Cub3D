@@ -116,5 +116,9 @@ int	map_check(char *file, t_data **data)
 	printf("rgb\t%d\n", (*data)->c_rgb[0]);
 	printf("rgb\t%d\n", (*data)->c_rgb[1]);
 	printf("rgb\t%d\n", (*data)->c_rgb[2]);
+	printf("NO\t%p\n", (*data)->draw->textures[0].img);
+	printf("SO\t%p\n", (*data)->draw->textures[1].img);
+	printf("WE\t%p\n", (*data)->draw->textures[2].img);
+	printf("EA\t%p\n", (*data)->draw->textures[3].img);
 	return (free_map(map), 1);
 }

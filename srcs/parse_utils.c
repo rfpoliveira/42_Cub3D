@@ -26,13 +26,10 @@ void	parse_exit(t_data *data)
 	i = -1;
 	if (data->draw)
 	{
-		printf("AAAAAAAAAAAAAAAAA\n");
 		if (data->draw->textures[0].img)
-			while (data->draw->textures[++i].img) {
-				printf("BBBBBBBBBBBBBBBBBB\n");
-				free(data->draw->textures[i].img);}
-		if (data->draw)
-			free(data->draw);
+			while (data->draw->textures[++i].img)
+				mlx_destroy_image(data->mlx, data->draw->textures[i].img);
+		free(data->draw);
 	}
 	if (data->mlx)
 		free(data->mlx);
