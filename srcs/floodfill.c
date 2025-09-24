@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/09/01 18:02:46 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:35:31 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
-
-typedef struct s_point
-{
-	int	y;
-	int	x;
-}	t_point;
 
 t_point	get_point(char **map, char c)
 {

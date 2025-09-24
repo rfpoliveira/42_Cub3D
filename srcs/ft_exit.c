@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:31:45 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:34:52 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	ft_exit(t_data *data)
 	if (data->numb_of_enemies > 0)
 		free_lst(data->enemies);
 	i = -1;
-	if (data->worldmap)
+	if (data->worldMap)
 	{
 		while (++i < MAPWIDTH)
-			free(data->worldmap[i]);
-		free(data->worldmap);
+			free(data->worldMap[i]);
+		free(data->worldMap);
 	}
 	ft_free_util(data);
 	exit(0);

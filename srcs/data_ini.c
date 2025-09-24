@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:33:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:59:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,19 @@ static void	controls_ini(t_data *data)
 	plane X and Y is the pov (screen)
 	side_x and Y are TODO
 */
-/*direcoes: norte: y = -1 / planex = 0.66
-			sul:  y = 1 / planeX = -0.66
-			este: x = 1 /planey = 0.66
-			oeste: x = -1 / planey = -0.66
-*/
+
 static void	vars_ini(t_data *data)
 {
-	data->pos_x = 22;
-	data->pos_y = 12;
+	char p_dir;
+
+	printf("what the fuck");
+	p_dir = get_player(data);
 	data->curr_time = 0;
 	data->old_time = 0;
 	data->vars->win_w = (int)SCREENWIDTH;
 	data->vars->win_h = (int)SCREENHEIGHT;
 	data->delta_time = 0;
-	data->dir_vec_x = -1;
-	data->dir_vec_y = 0;
-	data->plane_x = 0;
-	data->plane_y = 0.66;
+	get_dir_vars(data, p_dir);
 	data->vars->side_x = 0;
 	data->vars->side_y = 0;
 }
@@ -107,11 +102,6 @@ void	data_ini(char *file, t_data *data)
 {
 	if (!map_check(file, &data))
 		parse_exit(data);
-	/*int	i;*/
-	/*i = -1;*/
-	/*while (data->worldMap[++i])*/
-	/*	printf("mapa: %s", data->worldMap[i]);*/
-	exit(0);
 	data->mlx = mlx_init();
 	if (!(data->mlx))
 		ft_exit(data);

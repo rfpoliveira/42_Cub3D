@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:02:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/05 14:42:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	put_minimap_pixel(t_data *data, int i, int j, double scale)
 {
 	if (i * scale < MAPWIDTH && j * scale < MAPHEIGHT)
 	{
-		if (data->worldmap[(int)(floor(i * scale))][(int)floor(j * scale)] == 0)
+		if (data->worldMap[(int)(floor(i * scale))][(int)floor(j * scale)] == 0)
 			my_mlx_pixel_put(data->draw->minimap, i, j, 0xFFFFFF);
-		else if (data->worldmap[(int)(floor(i * scale))]
+		else if (data->worldMap[(int)(floor(i * scale))]
 		[(int)floor(j * scale)] == 2)
 			my_mlx_pixel_put(data->draw->minimap, i, j, 0xFF0000);
 		else

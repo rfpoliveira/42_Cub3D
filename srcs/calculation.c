@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:39:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 19:27:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:37:40 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	check_walls(t_data *data)
 			vars->mapy += vars->dir_stepy;
 			vars->side_hit = 1;
 		}
-		if (data->worldmap[vars->mapx][vars->mapy] > 0)
+		if (data->worldMap[vars->mapx][vars->mapy] > '0')
 			something_hit(data);
 	}
 }

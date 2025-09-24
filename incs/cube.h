@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:35:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:50:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@
 /*============================================================================#
 #                                 Structs                                     #
 #============================================================================*/
+
+
+typedef struct s_point
+{
+	int	y;
+	int	x;
+}	t_point;
 
 typedef struct s_enemy
 {
@@ -120,12 +127,12 @@ typedef struct s_data
 	char	**worldMap;
 	void	*mlx;
 	void	*win;
-	double	pos_X;
-	double	pos_Y;
-	double	plane_X;
-	double	plane_Y;
-	double	dir_vec_X;
-	double	dir_vec_Y;
+	double	pos_x;
+	double	pos_y;
+	double	plane_x;
+	double	plane_y;
+	double	dir_vec_x;
+	double	dir_vec_y;
 	double	curr_time;
 	double	old_time;
 	double	delta_time;
@@ -136,9 +143,12 @@ typedef struct s_data
 	t_enemy *enemies;
 	int		numb_of_enemies;
 	double	*buffer_z;
-	bool	controls[cntls_numb];
+	bool	controls[CNTLS_NUMB];
+	int		minimap_h;
+	int		minimap_w;
 	t_calc_vars *vars;
 	t_draw_calc *draw;
+	t_enemy_draw	*drawing_vars;
 }	t_data;
 /*============================================================================#
 #                                 Functions                                   #
@@ -147,6 +157,8 @@ typedef struct s_data
 //inicializacion
 void	data_ini(char *file, t_data *data);
 void	ini_texture(t_data *data);
+char	get_player(t_data *data);
+void	get_dir_vars(t_data *data, char p_dir);
 
 //inputs
 void	handle_inputs(t_data *data);
@@ -215,5 +227,6 @@ char	**mapcpy(char **map);
 int		fill(t_data *data);
 char	**mapcpy(char **map);
 void	parse_exit(t_data *data);
+t_point	get_point(char **map, char c);
 
 #endif

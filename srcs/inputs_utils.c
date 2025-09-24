@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:16:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/05 14:36:46 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,69 +14,69 @@
 
 void	press_0(t_data *data, double movespeed)
 {
-	int	worldmapx;
-	int	worldmapy;
+	int	worldMapx;
+	int	worldMapy;
 
-	worldmapx = (int)(data->pos_x + data->dir_vec_x * movespeed);
-	worldmapy = (int)(data->pos_y + data->dir_vec_y * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == 0 &&
-		data->worldmap[(int)(worldmapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-		data->worldmap[(int)(worldmapx - 0.1)][(int)(data->pos_y + 0.1)] == 0)
+	worldMapx = (int)(data->pos_x + data->dir_vec_x * movespeed);
+	worldMapy = (int)(data->pos_y + data->dir_vec_y * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
+		data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
+		data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y + 0.1)] == 0)
 		data->pos_x += data->dir_vec_x * movespeed;
-	if (data->worldmap[(int)(data->pos_x)][(int)worldmapy] == 0 &&
-		data->worldmap[(int)(data->pos_x + 0.1)][(int)(worldmapy + 0.1)] == 0 &&
-		data->worldmap[(int)(data->pos_x - 0.1)][(int)(worldmapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)worldMapy] == 0 &&
+		data->worldMap[(int)(data->pos_x + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
+		data->worldMap[(int)(data->pos_x - 0.1)][(int)(worldMapy - 0.1)] == 0)
 		data->pos_y += data->dir_vec_y * movespeed;
 }
 
 void	press_1(t_data *data, double movespeed)
 {
-	int	worldmapx;
-	int	worldmapy;
+	int	worldMapx;
+	int	worldMapy;
 
-	worldmapx = (int)(data->pos_x - data->dir_vec_x * movespeed);
-	worldmapy = (int)(data->pos_y - data->dir_vec_y * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == 0 &&
-	data->worldmap[(int)(worldmapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldmap[(int)(worldmapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
+	worldMapx = (int)(data->pos_x - data->dir_vec_x * movespeed);
+	worldMapy = (int)(data->pos_y - data->dir_vec_y * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
+	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
+	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
 		data->pos_x += -data->dir_vec_x * movespeed;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == 0 &&
-	data->worldmap[(int)((data->pos_x) + 0.1)][(int)(worldmapy + 0.1)] == 0 &&
-	data->worldmap[(int)((data->pos_x) - 0.1)][(int)(worldmapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
+	data->worldMap[(int)((data->pos_x) + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
+	data->worldMap[(int)((data->pos_x) - 0.1)][(int)(worldMapy - 0.1)] == 0)
 		data->pos_y += -data->dir_vec_y * movespeed;
 }
 
 void	press_2(t_data *data, double movespeed)
 {
-	int	worldmapx;
-	int	worldmapy;
+	int	worldMapx;
+	int	worldMapy;
 
-	worldmapx = (int)(data->pos_x + (-data->dir_vec_y) * movespeed);
-	worldmapy = (int)(data->pos_y + data->dir_vec_x * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == 0 &&
-	data->worldmap[(int)(worldmapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldmap[(int)(worldmapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
+	worldMapx = (int)(data->pos_x + (-data->dir_vec_y) * movespeed);
+	worldMapy = (int)(data->pos_y + data->dir_vec_x * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
+	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
+	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
 		data->pos_x += (-data->dir_vec_y) * movespeed;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == 0 &&
-	data->worldmap[(int)((data->pos_x) + 0.1)][(int)(worldmapy + 0.1)] == 0 &&
-	data->worldmap[(int)((data->pos_x) - 0.1)][(int)(worldmapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
+	data->worldMap[(int)((data->pos_x) + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
+	data->worldMap[(int)((data->pos_x) - 0.1)][(int)(worldMapy - 0.1)] == 0)
 		data->pos_y += data->dir_vec_x * movespeed;
 }
 
 void	press_3(t_data *data, double movespeed)
 {
-	int	worldmapx;
-	int	worldmapy;
+	int	worldMapx;
+	int	worldMapy;
 
-	worldmapx = (int)(data->pos_x + data->dir_vec_y * movespeed);
-	worldmapy = (int)(data->pos_y + (-data->dir_vec_y) * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == 0 &&
-	data->worldmap[(int)(worldmapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldmap[(int)(worldmapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
+	worldMapx = (int)(data->pos_x + data->dir_vec_y * movespeed);
+	worldMapy = (int)(data->pos_y + (-data->dir_vec_y) * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
+	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
+	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
 		data->pos_x += data->dir_vec_y * movespeed;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == 0 &&
-	data->worldmap[(int)(data->pos_x + 0.1)][(int)(worldmapy + 0.1)] == 0 &&
-	data->worldmap[(int)((data->pos_x - 0.1))][(int)(worldmapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
+	data->worldMap[(int)(data->pos_x + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
+	data->worldMap[(int)((data->pos_x - 0.1))][(int)(worldMapy - 0.1)] == 0)
 		data->pos_y += -(data->dir_vec_x) * movespeed;
 }
 

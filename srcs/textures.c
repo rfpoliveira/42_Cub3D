@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/05 14:54:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	text_selec_wall(t_data *data, double step, double pos_tex, int x)
 	while (++y < data->draw->end)
 	{
 		tex_y = (int)pos_tex & ((int)TEXTURE_H - 1);
-		if (data->worldmap[data->vars->mapx][data->vars->mapy] != 1)
+		if (data->worldMap[data->vars->mapx][data->vars->mapy] != 1)
 			return ;
 		if (data->vars->side_hit == 0 && data->vars->dir_stepx == -1)
 			texture_idx = 0;
