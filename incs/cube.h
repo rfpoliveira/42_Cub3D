@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/04 19:25:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:35:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,36 +117,35 @@ typedef struct s_enemy_draw
 
 typedef struct s_data
 {
-	int				**worldmap;
-	void			*mlx;
-	void			*win;
-	double			pos_x;
-	double			pos_y;
-	double			plane_x;
-	double			plane_y;
-	double			dir_vec_x;
-	double			dir_vec_y;
-	double			curr_time;
-	double			old_time;
-	double			delta_time;
-	int				gun_animation;
-	int				shoot_flag;
-	int				minimap_w;
-	int				minimap_h;
-	t_enemy			*enemies;
-	int				numb_of_enemies;
-	double			*buffer_z;
-	bool			controls[CNTLS_NUMB];
-	t_calc_vars		*vars;
-	t_draw_calc		*draw;
-	t_enemy_draw	*drawing_vars;
+	char	**worldMap;
+	void	*mlx;
+	void	*win;
+	double	pos_X;
+	double	pos_Y;
+	double	plane_X;
+	double	plane_Y;
+	double	dir_vec_X;
+	double	dir_vec_Y;
+	double	curr_time;
+	double	old_time;
+	double	delta_time;
+	int		f_rgb[3];
+	int		c_rgb[3];
+	int		gun_animation;
+	int		shoot_flag;
+	t_enemy *enemies;
+	int		numb_of_enemies;
+	double	*buffer_z;
+	bool	controls[cntls_numb];
+	t_calc_vars *vars;
+	t_draw_calc *draw;
 }	t_data;
 /*============================================================================#
 #                                 Functions                                   #
 #============================================================================*/
 
 //inicializacion
-void	data_ini(t_data *data);
+void	data_ini(char *file, t_data *data);
 void	ini_texture(t_data *data);
 
 //inputs
@@ -203,5 +202,18 @@ void	fps_counter(t_data *data);
 
 //memory
 int		ft_exit(t_data *data);
+
+//parsing
+int		skip_spaces(char *str);
+int		check_digit(char *str);
+int		check_rgb(char *str, t_data **data);
+int		valid_rgb(char **map, t_data **data);
+int		map_size(char *file);
+int		valid_file(char *file);
+int		map_check(char *file, t_data **data);
+char	**mapcpy(char **map);
+int		fill(t_data *data);
+char	**mapcpy(char **map);
+void	parse_exit(t_data *data);
 
 #endif

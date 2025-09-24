@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:22:01 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/05 14:40:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:35:56 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,38 @@ int	game_loop(t_data *data)
 	return (0);
 }
 
-int	main(void)
+int	parse(char *file, t_data **data)
 {
-	t_data	*data;
+	if (!valid_file(file))
+	{
+		if (*data)
+			free(*data);
+		ft_putstr_fd("Error\nInvalid arguments or file\n", 2);
+		return (0);
+	}
+	/*if (!map_check(file, data))*/
+	/*{*/
+	/*	ft_putstr_fd("Error\nInvalid map\n", 2);*/
+	/*	return (0);*/
+	/*}*/
+	return (1);
+}
 
+int main (int ac, char **av)
+{
+	t_data *data;
+	
+	if (ac != 2)
+	{
+		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
+		return (0);
+	}
 	data = malloc(sizeof(t_data));
 	if (!data)
 		ft_exit(data);
-	data_ini(data);
+	if (!parse(av[1], &data))
+		ft_exit(data);
+	data_ini(av[1], data);
 	mlx_hook(data->win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win, 17, 1L << 17, ft_exit, data);

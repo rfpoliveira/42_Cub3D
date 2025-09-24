@@ -1,5 +1,11 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "cube.h": "c"
     }
+=======
+	"files.associations": {
+		"stdint.h": "c"
+	}
+>>>>>>> origin/joana_branch
 }
