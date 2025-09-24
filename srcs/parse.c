@@ -22,10 +22,8 @@ void	set_text(char **map, t_data **data, int y, int x)
 	temp = ft_strtrim(&map[y][x], "\t ");
 	(*data)->draw->tex_w = 64;
 	(*data)->draw->tex_h = 64;
-	/*(*data)->draw->textures[n].img = NULL;*/
 	(*data)->draw->textures[n].img = mlx_xpm_file_to_image((*data)->mlx, temp,
 		&(*data)->draw->tex_w, &(*data)->draw->tex_h);
-	printf("HERE: %d\n", n);
 	n++;
 	free(temp);
 	if (!(*data)->draw->textures[n - 1].img)

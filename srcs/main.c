@@ -44,11 +44,6 @@ int	parse(char *file, t_data **data)
 		ft_putstr_fd("Error\nInvalid arguments or file\n", 2);
 		return (0);
 	}
-	/*if (!map_check(file, data))*/
-	/*{*/
-	/*	ft_putstr_fd("Error\nInvalid map\n", 2);*/
-	/*	return (0);*/
-	/*}*/
 	return (1);
 }
 
