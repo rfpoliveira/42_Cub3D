@@ -32,7 +32,10 @@ void	parse_exit(t_data *data)
 		free(data->draw);
 	}
 	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
 		free(data->mlx);
+	}
 	if (data)
 		free(data);
 	ft_putstr_fd("Error\nInvalid map\n", 2);
