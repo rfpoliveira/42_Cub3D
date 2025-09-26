@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:16:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:02:56 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,73 +14,73 @@
 
 void	press_0(t_data *data, double movespeed)
 {
-	int	worldMapx;
-	int	worldMapy;
+	float	worldMapx;
+	float	worldMapy;
 
-	worldMapx = (int)(data->pos_x + data->dir_vec_x * movespeed);
-	worldMapy = (int)(data->pos_y + data->dir_vec_y * movespeed);
-	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
-		data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-		data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y + 0.1)] == 0)
+	worldMapx = (data->pos_x + data->dir_vec_x * movespeed);
+	worldMapy = (data->pos_y + data->dir_vec_y * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == '0' &&
+		data->worldMap[(int)(worldMapx + 0.2)][(int)(data->pos_y)] == '0' &&
+		data->worldMap[(int)(worldMapx - 0.2)][(int)(data->pos_y)] == '0')
 		data->pos_x += data->dir_vec_x * movespeed;
-	if (data->worldMap[(int)(data->pos_x)][(int)worldMapy] == 0 &&
-		data->worldMap[(int)(data->pos_x + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
-		data->worldMap[(int)(data->pos_x - 0.1)][(int)(worldMapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)worldMapy] == '0' &&
+		data->worldMap[(int)(data->pos_x)][(int)(worldMapy + 0.2)] == '0' &&
+		data->worldMap[(int)(data->pos_x)][(int)(worldMapy - 0.2)] == '0')
 		data->pos_y += data->dir_vec_y * movespeed;
 }
 
 void	press_1(t_data *data, double movespeed)
 {
-	int	worldMapx;
-	int	worldMapy;
+	float	worldMapx;
+	float	worldMapy;
 
-	worldMapx = (int)(data->pos_x - data->dir_vec_x * movespeed);
-	worldMapy = (int)(data->pos_y - data->dir_vec_y * movespeed);
-	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
-	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
+	worldMapx = (data->pos_x - data->dir_vec_x * movespeed);
+	worldMapy = (data->pos_y - data->dir_vec_y * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == '0' &&
+	data->worldMap[(int)(worldMapx + 0.2)][(int)(data->pos_y)] == '0' &&
+	data->worldMap[(int)(worldMapx - 0.2)][(int)(data->pos_y )] == '0')
 		data->pos_x += -data->dir_vec_x * movespeed;
-	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
-	data->worldMap[(int)((data->pos_x) + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
-	data->worldMap[(int)((data->pos_x) - 0.1)][(int)(worldMapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == '0' &&
+	data->worldMap[(int)((data->pos_x))][(int)(worldMapy + 0.2)] == '0' &&
+	data->worldMap[(int)((data->pos_x))][(int)(worldMapy - 0.2)] == '0')
 		data->pos_y += -data->dir_vec_y * movespeed;
-}
-
-void	press_2(t_data *data, double movespeed)
-{
-	int	worldMapx;
-	int	worldMapy;
-
-	worldMapx = (int)(data->pos_x + (-data->dir_vec_y) * movespeed);
-	worldMapy = (int)(data->pos_y + data->dir_vec_x * movespeed);
-	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
-	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
-		data->pos_x += (-data->dir_vec_y) * movespeed;
-	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
-	data->worldMap[(int)((data->pos_x) + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
-	data->worldMap[(int)((data->pos_x) - 0.1)][(int)(worldMapy - 0.1)] == 0)
-		data->pos_y += data->dir_vec_x * movespeed;
 }
 
 void	press_3(t_data *data, double movespeed)
 {
-	int	worldMapx;
-	int	worldMapy;
+	float	worldMapx;
+	float	worldMapy;
 
-	worldMapx = (int)(data->pos_x + data->dir_vec_y * movespeed);
-	worldMapy = (int)(data->pos_y + (-data->dir_vec_y) * movespeed);
-	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == 0 &&
-	data->worldMap[(int)(worldMapx + 0.1)][(int)(data->pos_y + 0.1)] == 0 &&
-	data->worldMap[(int)(worldMapx - 0.1)][(int)(data->pos_y - 0.1)] == 0)
+	worldMapx = (data->pos_x + data->dir_vec_y * movespeed);
+	worldMapy = (data->pos_y + data->dir_vec_x * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == '0' &&
+	data->worldMap[(int)(worldMapx + 0.2)][(int)(data->pos_y)] == '0' &&
+	data->worldMap[(int)(worldMapx - 0.2)][(int)(data->pos_y)] == '0')
+		data->pos_x += (-data->dir_vec_y) * movespeed;
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == '0' &&
+	data->worldMap[(int)((data->pos_x))][(int)(worldMapy + 0.2)] == '0' &&
+	data->worldMap[(int)((data->pos_x))][(int)(worldMapy - 0.2)] == '0')
+		data->pos_y += data->dir_vec_x * movespeed;
+}
+
+void	press_2(t_data *data, double movespeed)
+{
+	float	worldMapx;
+	float	worldMapy;
+
+	worldMapx = (data->pos_x + data->dir_vec_y * movespeed);
+	worldMapy = (data->pos_y + data->dir_vec_y * movespeed);
+	if (data->worldMap[(int)(worldMapx)][(int)data->pos_y] == '0' &&
+	data->worldMap[(int)(worldMapx + 0.2)][(int)(data->pos_y)] == '0' &&
+	data->worldMap[(int)(worldMapx - 0.2)][(int)(data->pos_y)] == '0')
 		data->pos_x += data->dir_vec_y * movespeed;
-	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == 0 &&
-	data->worldMap[(int)(data->pos_x + 0.1)][(int)(worldMapy + 0.1)] == 0 &&
-	data->worldMap[(int)((data->pos_x - 0.1))][(int)(worldMapy - 0.1)] == 0)
+	if (data->worldMap[(int)(data->pos_x)][(int)(worldMapy)] == '0' &&
+	data->worldMap[(int)(data->pos_x)][(int)(worldMapy + 0.2)] == '0' &&
+	data->worldMap[(int)((data->pos_x))][(int)(worldMapy - 0.2)] == '0')
 		data->pos_y += -(data->dir_vec_x) * movespeed;
 }
 
-void	press_4(t_data *data, double rot)
+void	press_5(t_data *data, double rot)
 {
 	double	old_dir;
 	double	old_planex;

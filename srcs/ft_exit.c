@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:31:45 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:42:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:30:02 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	ft_free_util(t_data *data)
 		free(data->buffer_z);
 	if (data->draw->img_buffer)
 		free(data->draw->img_buffer);
-	if (data->draw->minimap)
-		free(data->draw->minimap);
 	if (data->vars)
 		free(data->vars);
 	if (data->draw)
@@ -53,8 +51,6 @@ int	ft_exit(t_data *data)
 	int	i;
 
 	i = -1;
-	if (data->draw->minimap->img)
-		mlx_destroy_image(data->mlx, data->draw->minimap->img);
 	while (++i < TEX_NUMB)
 		if (data->draw->textures[i].img)
 			mlx_destroy_image(data->mlx, data->draw->textures[i].img);
@@ -68,7 +64,7 @@ int	ft_exit(t_data *data)
 	i = -1;
 	if (data->worldMap)
 	{
-		while (++i < MAPWIDTH)
+		while (data->worldMap[++i])
 			free(data->worldMap[i]);
 		free(data->worldMap);
 	}

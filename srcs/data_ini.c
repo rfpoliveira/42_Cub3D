@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 14:59:28 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:29:50 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	vars_ini(t_data *data)
 {
 	char p_dir;
 
-	printf("what the fuck");
 	p_dir = get_player(data);
 	data->curr_time = 0;
 	data->old_time = 0;
@@ -63,8 +62,6 @@ static void	vars_ini(t_data *data)
  */
 static void	draw_ini(t_data *data)
 {
-	data->minimap_w = (SCREENWIDTH / 8);
-	data->minimap_h = (SCREENHEIGHT / 8 * (SCREENWIDTH / SCREENHEIGHT));
 	data->draw->img_buffer->img = mlx_new_image(data->mlx,
 	data->vars->win_w, data->vars->win_h);
 	if (!(data->draw->img_buffer->img))
@@ -81,9 +78,6 @@ static void	draw_ini(t_data *data)
 	data->draw->line_h = 0;
 	data->draw->tex_h = 64;
 	data->draw->tex_w = 64;
-	data->draw->minimap_startx = (int)SCREENWIDTH / 20;
-	data->draw->minimap_starty = (int)SCREENHEIGHT - (int)SCREENHEIGHT
-		/ 20 - data->minimap_h;
 }
 static void	window_ini(t_data *data)
 {
@@ -118,7 +112,6 @@ void	data_ini(char *file, t_data *data)
 	controls_ini(data);
 	draw_ini(data);
 	ini_texture(data);
-	ini_minimap(data);
 	enemies_ini(data);
 	ene_drawing_ini(data);
 }

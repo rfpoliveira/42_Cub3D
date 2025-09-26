@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:11:02 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 15:36:56 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:30:55 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ char	get_player(t_data *data)
 		player = get_point(data->worldMap, 'E');
 		dir = 'E';
 	}
-	printf("posicao player: x: %i, y:%i", player.x, player.y);
-	data->pos_x = player.x;
-	data->pos_y = player.y;
-	data->worldMap[player.x][player.y] = 0;
+	data->pos_x = player.y + 0.5;
+	data->pos_y = player.x + 0.5;
+	data->worldMap[player.y][player.x] = '0';
 	return (dir);
 }
 
@@ -87,9 +86,9 @@ void	something_hit(t_data *data)
 	t_calc_vars		*vars;
 
 	vars = data->vars;
-	if (data->worldMap[vars->mapx][vars->mapy] == '1')
+	if (data->worldMap[vars->mapx][vars->mapy] > '0')
 		vars->hit = 1;
-	if (data->controls[7] && data->worldMap[vars->mapx][vars->mapy] == '2'
+	if (data->controls[6] && data->worldMap[vars->mapx][vars->mapy] == '2'
 	&& (vars->camera_x > -0.1 && vars->camera_x < 0.1)
 	&& data->shoot_flag == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:32:17 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/05 14:10:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:32:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	gun_frame_select(t_data *data)
 {
-	if (data->controls[7])
+	if (data->controls[6])
 	{
 		data->gun_animation++;
 		if (data->draw->gun_txt_idx == 6)
@@ -26,7 +26,7 @@ void	gun_frame_select(t_data *data)
 			}
 		}
 	}
-	else if (!data->controls[7] && data->draw->gun_txt_idx == 6)
+	else if (!data->controls[6] && data->draw->gun_txt_idx == 6)
 	{
 		data->gun_animation++;
 		if (data->gun_animation >= 30)

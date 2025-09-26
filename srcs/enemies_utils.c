@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 14:14:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 11:56:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:17:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	enemy_count(t_data *data)
 		j = -1;
 		while (data->worldMap[i][++j])
 		{
-			if (data->worldMap[i][j] == 2)
+			if (data->worldMap[i][j] == '2')
 				count++;
 		}
 	}
@@ -86,7 +86,7 @@ void	take_enemy_out(t_data *data, int enemy_dead)
 		if (current->id == enemy_dead)
 		{
 			tmp->next = current->next;
-			data->worldMap[(int)(current->pos_x)][(int)(current->pos_y)] = 0;
+			data->worldMap[(int)(current->pos_x)][(int)(current->pos_y)] = '0';
 			data->numb_of_enemies--;
 			if (current == data->enemies)
 				data->enemies = data->enemies->next;

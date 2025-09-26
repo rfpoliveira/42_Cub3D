@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/24 14:50:38 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:31:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 # define TEX_NUMB 7
 # define TEXTURE_W 64
 # define TEXTURE_H 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 320
-# define CNTLS_NUMB 8
+# define SCREENWIDTH 1080
+# define SCREENHEIGHT 720
+# define CNTLS_NUMB 7
 
 /*============================================================================#
 #                                 Libraries                                   #
@@ -72,10 +70,7 @@ typedef struct s_draw_calc
 	int		end;
 	int		tex_w;
 	int		tex_h;
-	int		minimap_startx;
-	int		minimap_starty;
 	int		gun_txt_idx;
-	t_img	*minimap;
 	t_img	*img_buffer;
 	t_img	textures[TEX_NUMB];
 }	t_draw_calc;
@@ -144,8 +139,6 @@ typedef struct s_data
 	int		numb_of_enemies;
 	double	*buffer_z;
 	bool	controls[CNTLS_NUMB];
-	int		minimap_h;
-	int		minimap_w;
 	t_calc_vars *vars;
 	t_draw_calc *draw;
 	t_enemy_draw	*drawing_vars;
@@ -189,10 +182,6 @@ void	alloc_enemy_list(t_data *data);
 void	enemies_ini(t_data *data);
 void	ene_drawing_ini(t_data *data);
 
-//minimap
-void	ini_minimap(t_data *data);
-void	draw_minimap(t_data *data);
-
 //combat
 void	draw_gun(t_data *data);
 void	enemies_ini(t_data *data);
@@ -203,6 +192,7 @@ void	enemy_count(t_data *data);
 void	take_enemy_out(t_data *data, int enemy_dead);
 
 //key_press_utils
+void	press_5(t_data *data, double rot);
 void	press_4(t_data *data, double rot);
 void	press_3(t_data *data, double movespeed);
 void	press_2(t_data *data, double movespeed);
