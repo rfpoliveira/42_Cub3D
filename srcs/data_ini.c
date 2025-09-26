@@ -105,10 +105,7 @@ void	data_ini(char *file, t_data *data)
 	data->draw = ft_calloc(sizeof(t_draw_calc), 1);
 	if (!map_check(file, &data))
 		parse_exit(data);
-	/*int	i;*/
-	/*i = -1;*/
-	/*while (data->worldMap[++i])*/
-	/*	printf("mapa: %s", data->worldMap[i]);*/
+	printf("success\n");
 	parse_exit(data);
 	window_ini(data);
 	data->vars = malloc(sizeof(t_calc_vars));

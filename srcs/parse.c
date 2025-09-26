@@ -17,7 +17,6 @@ void	set_text(char **map, t_data **data, int y, int x)
 	char	*temp;
 	static int	n = 0;
 
-	printf("HELLO\n");
 	temp = NULL;
 	temp = ft_strtrim(&map[y][x], "\t ");
 	(*data)->draw->tex_w = 64;
@@ -73,9 +72,10 @@ int	char_check(char **map)
 		{
 			if (map[y][x] == '1' || map[y][x] == '0' || map[y][x] == 'N'
 				|| map[y][x] == 'W' || map[y][x] == 'S' || map[y][x] == 'E'
-				|| map[y][x] == ' ' || map[y][x] == '\t')
+				|| map[y][x] == ' ' || map[y][x] == '\t' || map[y][x] == '2')
 			{
-				if (map[y][x] == 'N')
+				if (map[y][x] == 'N' || map[y][x] == 'W'
+				|| map[y][x] == 'S' || map[y][x] == 'E')
 					n++;
 				continue ;
 			}
@@ -90,33 +90,17 @@ int	map_check(char *file, t_data **data)
 {
 	int		size;
 	char	**map;
-	int		i;
 
-	i = -1;
 	size = map_size(file);
 	map = NULL;
 	map = ft_calloc(sizeof(char *), size + 1);
 	cpy_file(&map, file, size);
 	if (!map)
 		return (0);
-	while(map[++i])
-		printf("file:\t%s\n", map[i]);
 	(*data)->worldMap = valid_map(map);
-	i = -1;
-	while((*data)->worldMap[++i])
-		printf("map:\t%s\n", (*data)->worldMap[i]);
 	if (!(*data)->worldMap || !char_check((*data)->worldMap) 
-		|| !valid_rgb(map, data, 0) || !fill(*data) || !check_text(map, data))
+		|| !valid_rgb(map, data, 0, size)
+		|| !fill(*data) || !check_text(map, data, size))
 		return (free_map(map), 0);
-	printf("rgb\t%d\n", (*data)->f_rgb[0]);
-	printf("rgb\t%d\n", (*data)->f_rgb[1]);
-	printf("rgb\t%d\n", (*data)->f_rgb[2]);
-	printf("rgb\t%d\n", (*data)->c_rgb[0]);
-	printf("rgb\t%d\n", (*data)->c_rgb[1]);
-	printf("rgb\t%d\n", (*data)->c_rgb[2]);
-	printf("NO\t%p\n", (*data)->draw->textures[0].img);
-	printf("SO\t%p\n", (*data)->draw->textures[1].img);
-	printf("WE\t%p\n", (*data)->draw->textures[2].img);
-	printf("EA\t%p\n", (*data)->draw->textures[3].img);
 	return (free_map(map), 1);
 }

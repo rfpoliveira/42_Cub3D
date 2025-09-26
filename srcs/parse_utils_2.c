@@ -35,12 +35,40 @@ int	valid_file(char *file)
 	return (map_len > 8);
 }
 
-int	check_text(char **map, t_data **data)
+void	count_text(char *txt, char **map, t_data **data)
 {
+	int	i;
 	int	y;
 	int	x;
 
 	y = -1;
+	i = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == 'N' && map[y][x + 1] == 'O')
+				txt[++i] = 'N';
+			if (map[y][x] == 'S' && map[y][x + 1] == 'O')
+				txt[++i] = 'S';
+			if (map[y][x] == 'W' && map[y][x + 1] == 'E')
+				txt[++i] = 'W';
+			if (map[y][x] == 'E' && map[y][x + 1] == 'A')
+				txt[++i] = 'E';
+		}
+	}
+	check_count(txt, data);
+}
+
+int	check_text(char **map, t_data **data, int size)
+{
+	int	y;
+	int	x;
+	char	*count;
+
+	y = -1;
+	count = ft_calloc(sizeof(char), size);
 	while (map[++y])
 	{
 		x = -1;
@@ -56,6 +84,7 @@ int	check_text(char **map, t_data **data)
 				set_text(map, data, y, x + 2);
 		}
 	}
+	count_text(count, map, data);
 	return (1);
 }
 
