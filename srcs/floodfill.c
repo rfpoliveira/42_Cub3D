@@ -119,23 +119,23 @@ int	fill(t_data *data)
 	t_point	start;
 	char	**temp;
 	int		i;
-	
+
 	start = get_point(data->worldMap, 'N');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'S');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'E');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'W');
+	if (start.x == -1)
+		parse_exit(data);
 	temp = NULL;
 	i = -1;
 	temp = mapcpy(data->worldMap);
 	if (!temp)
-		ft_exit(data);
+		parse_exit(data);
 	floodfill(temp, start.y, start.x);
-	if (check_fill(temp))
-	{
-		while (temp[++i])
-			free(temp[i]);
-		free(temp);
-		return (1);
-	}
-		while (temp[++i])
-			free(temp[i]);
-		free(temp);
-	return (0);
+	if (check_fill(temp))	
+		return (free_map(temp), 1);
+	return (free_map(temp), 0);
 }
