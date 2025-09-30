@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:02:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:08:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:56:35 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	raycaster(t_data *data)
 		calculate_side(data);
 		check_walls(data);
 		calculate_perpendicular(data);
+		data->buffer_z[x] = data->vars->wall_dist;
 		calculate_lines(data);
 		calculate_texture_x(data, x);
 	}

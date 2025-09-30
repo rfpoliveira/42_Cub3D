@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:05:23 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:46:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,18 +137,14 @@ int	valid_rgb(char **map, t_data **data)
 void	set_text(char **map, t_data **data, int y, int x)
 {
 	char	*temp;
-	int 	i;
 
 	temp = NULL;
-	i = 0;
-	while ((*data)->draw->textures[i].img)
-		i++;
 	x += skip_spaces(&map[y][x]);
 	temp = ft_substr(map[y], x, ft_strlen(&map[y][x]));
 	if (mlx_xpm_file_to_image((*data)->mlx, temp, &(*data)->draw->tex_w,
 		&(*data)->draw->tex_h))
 		{
-			(*data)->draw->textures[i].img = mlx_xpm_file_to_image((*data)->mlx, temp,
+			(*data)->draw->textures->img = mlx_xpm_file_to_image((*data)->mlx, temp,
 				&(*data)->draw->tex_w, &(*data)->draw->tex_h);
 		}
 	free(temp);
@@ -160,6 +156,7 @@ int	check_text(char **map, t_data **data)
 	int	x;
 
 	y = -1;
+	(*data)->draw->textures->img = NULL;
 	while (map[++y])
 	{
 		x = -1;

@@ -104,7 +104,7 @@ void	check_walls(t_data *data)
 			vars->side_hit = 1;
 		}
 		if (data->worldmap[vars->mapx][vars->mapy] > '0')
-			vars->hit = 1;
+			something_hit(data);
 	}
 }
 

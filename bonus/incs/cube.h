@@ -13,12 +13,12 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-# define TEX_NUMB 4
+# define TEX_NUMB 7
 # define TEXTURE_W 64
 # define TEXTURE_H 64
 # define SCREENWIDTH 1080
 # define SCREENHEIGHT 720
-# define CNTLS_NUMB 6
+# define CNTLS_NUMB 7
 
 /*============================================================================#
 #                                 Libraries                                   #
@@ -36,11 +36,23 @@
 #                                 Structs                                     #
 #============================================================================*/
 
+
 typedef struct s_point
 {
 	int	y;
 	int	x;
 }	t_point;
+
+typedef struct s_enemy
+{
+	int					id;
+	int					enemy_hp;
+	double				pos_x;
+	double				pos_y;
+	double				distance;
+	struct s_enemy		*next;
+	struct s_enemy		*prev;
+}	t_enemy;
 
 typedef struct s_img
 {
@@ -85,25 +97,51 @@ typedef struct s_calc_vars
 	int		texture_x;
 }	t_calc_vars;
 
+typedef struct s_enemy_draw
+{
+	double		sprite_x;
+	double		sprite_y;
+	double		trans_x;
+	double		trans_y;
+	double		inv;
+	int			sprite_screen_x;
+	int			sprite_h;
+	int			sprite_w;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			vertical;
+	int			texture_x;
+	int			texture_y;
+	int			y;
+	int			d;
+	uint32_t	color;
+}	t_enemy_draw;
+
 typedef struct s_data
 {
-	char		**worldmap;
-	void		*mlx;
-	void		*win;
-	double		pos_x;
-	double		pos_y;
-	double		plane_x;
-	double		plane_y;
-	double		dir_vec_x;
-	double		dir_vec_y;
-	double		curr_time;
-	double		old_time;
-	double		delta_time;
-	int			f_rgb[3];
-	int			c_rgb[3];
-	bool		controls[CNTLS_NUMB];
-	t_calc_vars	*vars;
-	t_draw_calc	*draw;
+	char	**worldmap;
+	void	*mlx;
+	void	*win;
+	double	pos_x;
+	double	pos_y;
+	double	plane_x;
+	double	plane_y;
+	double	dir_vec_x;
+	double	dir_vec_y;
+	double	curr_time;
+	double	old_time;
+	double	delta_time;
+	int		f_rgb[3];
+	int		c_rgb[3];
+	int		gun_animation;
+	int		shoot_flag;
+	t_enemy *enemies;
+	int		numb_of_enemies;
+	double	*buffer_z;
+	bool	controls[CNTLS_NUMB];
+	t_calc_vars *vars;
+	t_draw_calc *draw;
+	t_enemy_draw	*drawing_vars;
 }	t_data;
 /*============================================================================#
 #                                 Functions                                   #
@@ -135,6 +173,23 @@ void	something_hit(t_data *data);
 void	calculate_texture_x(t_data *data, int x);
 void	clear_img(t_data *data, int ceiling_color, int floor_color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	calculate_variables(t_data *data, t_enemy_draw *tmp, t_enemy *current);
+void	calculate_more_variables(t_enemy_draw *tmp);
+void	calculate_color(t_data *data, t_enemy_draw *tmp);
+void	mount_image(t_data *data, t_enemy_draw *tmp);
+void	position_n_distance(t_data *data);
+void	alloc_enemy_list(t_data *data);
+void	enemies_ini(t_data *data);
+void	ene_drawing_ini(t_data *data);
+
+//combat
+void	draw_gun(t_data *data);
+void	enemies_ini(t_data *data);
+int		enemy_hit(t_data *data, int mapx, int mapy);
+void	draw_enemies(t_data *data);
+void	order_enemies(t_data *data);
+void	enemy_count(t_data *data);
+void	take_enemy_out(t_data *data, int enemy_dead);
 
 //key_press_utils
 void	press_5(t_data *data, double rot);

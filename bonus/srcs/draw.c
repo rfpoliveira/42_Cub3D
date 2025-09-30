@@ -6,11 +6,62 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:32:17 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:07:28 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:32:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
+
+void	gun_frame_select(t_data *data)
+{
+	if (data->controls[6])
+	{
+		data->gun_animation++;
+		if (data->draw->gun_txt_idx == 6)
+		{
+			if (data->gun_animation >= 30)
+			{
+				data->draw->gun_txt_idx = 5;
+				data->gun_animation = 0;
+			}
+		}
+	}
+	else if (!data->controls[6] && data->draw->gun_txt_idx == 6)
+	{
+		data->gun_animation++;
+		if (data->gun_animation >= 30)
+		{
+			data->draw->gun_txt_idx = 5;
+			data->gun_animation = 0;
+		}
+	}
+}
+
+void	draw_gun(t_data *data)
+{
+	int			i;
+	int			j;
+	t_img		gun;
+	uint32_t	color;
+
+	i = -1;
+	j = -1;
+	gun_frame_select(data);
+	gun = data->draw->textures[data->draw->gun_txt_idx];
+	while (++i < 256)
+	{
+		j = -1;
+		while (++j < 256)
+		{
+			color = *(uint32_t *)(gun.addr + (j * gun.line_len + i
+						* (gun.bpp / 8)));
+			if (color != 0xFFFFFF)
+				my_mlx_pixel_put(data->draw->img_buffer, i
+					+ (SCREENWIDTH / 2 - 128), j
+					+ (SCREENHEIGHT - 256), color);
+		}
+	}
+}
 
 /**
 	@brief now we calculate the height of the wall considering the window

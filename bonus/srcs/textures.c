@@ -96,6 +96,12 @@ static void	texture_to_image(t_data *data)
 			"textures/greystone.xpm", &data->draw->tex_w, &data->draw->tex_h);
 	data->draw->textures[3].img = mlx_xpm_file_to_image(data->mlx,
 			"textures/mossy.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[4].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/demon.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[5].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
+	data->draw->textures[6].img = mlx_xpm_file_to_image(data->mlx,
+			"textures/shoot_gun.xpm", &data->draw->tex_w, &data->draw->tex_h);
 	i = -1;
 	while (++i < TEX_NUMB)
 	{

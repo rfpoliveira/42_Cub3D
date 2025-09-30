@@ -38,7 +38,7 @@ void	press_1(t_data *data, double movespeed)
 	worldmapy = (data->pos_y - data->dir_vec_y * movespeed);
 	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
 	data->worldmap[(int)(worldmapx + 0.2)][(int)(data->pos_y)] == '0' &&
-	data->worldmap[(int)(worldmapx - 0.2)][(int)(data->pos_y)] == '0')
+	data->worldmap[(int)(worldmapx - 0.2)][(int)(data->pos_y )] == '0')
 		data->pos_x += -data->dir_vec_x * movespeed;
 	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0' &&
 	data->worldmap[(int)((data->pos_x))][(int)(worldmapy + 0.2)] == '0' &&

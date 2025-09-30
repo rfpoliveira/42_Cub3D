@@ -19,12 +19,12 @@ t_point	get_point(char **map, char c)
 	int		x;
 
 	y = -1;
-	p.y = y;
+	p.y	 = y;
 	while (map[++y])
 	{
 		x = -1;
 		p.x = -1;
-		while (map[y][++x])
+		while(map[y][++x])
 		{
 			if (map[y][x] == c)
 			{

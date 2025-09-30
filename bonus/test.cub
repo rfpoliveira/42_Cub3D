@@ -1,0 +1,18 @@
+NO ./textures/bluestone.xpm
+SO ./textures/colorstone.xpm
+WE ./textures/mossy.xpm
+EA ./textures/greystone.xpm
+
+
+
+
+		
+F 220,100,0
+C 225,30,0
+
+11111111111111111
+1000000000000N0001
+10000001111111111
+100000000001
+111111111111
+

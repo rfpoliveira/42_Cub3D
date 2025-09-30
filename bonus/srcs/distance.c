@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:19:56 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/26 12:17:32 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	position_n_distance(t_data *data)
 	i = -1;
 	j = -1;
 	tmp = data->enemies;
-	while (data->worldMap[++i])
+	while (data->worldmap[++i])
 	{
 		j = -1;
-		while (data->worldMap[i][++j])
+		while (data->worldmap[i][++j])
 		{
-			if (data->worldMap[i][j] == '2')
+			if (data->worldmap[i][j] == '2')
 			{
 				put_values(data, i, j, tmp);
 				tmp = tmp->next;
