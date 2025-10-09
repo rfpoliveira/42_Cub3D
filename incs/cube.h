@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:59:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,9 @@ int		ft_exit(t_data *data);
 //parsing
 int		skip_spaces(char *str);
 int		check_digit(char *str);
+int		check_text(char **map, t_data **data, int size);
 int		check_rgb(char *str, t_data **data);
-int		valid_rgb(char **map, t_data **data);
+int		valid_rgb(char **map, t_data **data, int check, int size);
 int		map_size(char *file);
 int		valid_file(char *file);
 int		map_check(char *file, t_data **data);
@@ -162,6 +163,15 @@ char	**mapcpy(char **map);
 int		fill(t_data *data);
 char	**mapcpy(char **map);
 void	parse_exit(t_data *data);
-t_point	get_point(char **map, char c);
+int		extension_finder(char *file);
+void	free_map(char **map);
+void	cpy_file(char ***map, char *file, int size);
+void	set_text(char **map, t_data **data, int y, int x);
+void	f_rgb_set(char *file, t_data **data, int x);
+void	c_rgb_set(char *file, t_data **data, int x);
+int		check_rgb(char *file, t_data **data);
+int		ft_strchrlen(char *s, char c);
+void	count_rgb(char **map, t_data **data, int size);
+void	check_count(char *str, t_data **data);
 
 #endif

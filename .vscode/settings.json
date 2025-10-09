@@ -5,7 +5,8 @@
     }
 =======
 	"files.associations": {
-		"stdint.h": "c"
+		"stdint.h": "c",
+		"cstdlib": "c"
 	}
 >>>>>>> origin/joana_branch
 }

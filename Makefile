@@ -2,8 +2,14 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
+<<<<<<< HEAD
 SRCS = $(addprefix $(SRCS_PATH)/, calc_utils.c calculation.c data_ini.c draw.c \
 floodfill.c fps_counter.c ft_exit.c inputs_utils.c inputs.c main.c parse_utils.c parse.c raycaster.c textures.c)
+=======
+SRCS = $(addprefix $(SRCS_PATH)/, main.c inputs.c data_ini.c ft_exit.c raycaster.c calculation.c draw.c fps_counter.c textures.c \
+minimap.c enemies.c enemies_utils.c parse.c parse_utils.c floodfill.c \
+parse_utils_2.c rgb_set.c)
+>>>>>>> origin/joana_branch
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
