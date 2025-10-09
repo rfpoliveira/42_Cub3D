@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:05:23 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/09 12:11:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:42:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	char_check(char **map)
 		{
 			if (map[y][x] == '1' || map[y][x] == '0' || map[y][x] == 'N'
 				|| map[y][x] == 'W' || map[y][x] == 'S' || map[y][x] == 'E'
-				|| map[y][x] == ' ' || map[y][x] == '\t' || map[y][x] == '2')
+				|| map[y][x] == ' ' || map[y][x] == '\t')
 			{
 				if (map[y][x] == 'N' || map[y][x] == 'W'
 				|| map[y][x] == 'S' || map[y][x] == 'E')
@@ -97,10 +97,10 @@ int	map_check(char *file, t_data **data)
 	cpy_file(&map, file, size);
 	if (!map)
 		return (0);
-	(*data)->worldMap = valid_map(map);
-	if (!(*data)->worldMap || !char_check((*data)->worldMap) 
+	(*data)->worldmap = valid_map(map);
+	if (!(*data)->worldmap || !char_check((*data)->worldmap) 
 		|| !valid_rgb(map, data, 0, size)
 		|| !fill(*data) || !check_text(map, data, size))
-		return (free_map(map), 0);
-	return (free_map(map), 1);
+		return (free_map(&map), 0);
+	return (free_map(&map), 1);
 }

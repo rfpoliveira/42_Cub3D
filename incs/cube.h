@@ -6,11 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/10/09 12:07:33 by rpedrosa         ###   ########.fr       */
-=======
-/*   Updated: 2025/10/09 11:59:14 by rpedrosa         ###   ########.fr       */
->>>>>>> 603bf8935abc245840a7c57b1e28342a4a53ff5b
+/*   Updated: 2025/10/09 16:18:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +165,7 @@ char	**mapcpy(char **map);
 void	parse_exit(t_data *data);
 t_point	get_point(char **map, char c);
 int		extension_finder(char *file);
-void	free_map(char **map);
+void	free_map(char ***map);
 void	cpy_file(char ***map, char *file, int size);
 void	set_text(char **map, t_data **data, int y, int x);
 void	f_rgb_set(char *file, t_data **data, int x);

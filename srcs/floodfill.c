@@ -6,11 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/10/09 12:09:15 by rpedrosa         ###   ########.fr       */
-=======
-/*   Updated: 2025/10/09 11:59:24 by rpedrosa         ###   ########.fr       */
->>>>>>> 603bf8935abc245840a7c57b1e28342a4a53ff5b
+/*   Updated: 2025/10/09 16:43:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,22 +114,22 @@ int	fill(t_data *data)
 	char	**temp;
 	int		i;
 
-	start = get_point(data->worldMap, 'N');
+	start = get_point(data->worldmap, 'N');
 	if (start.x == -1)
-		start = get_point(data->worldMap, 'S');
+		start = get_point(data->worldmap, 'S');
 	if (start.x == -1)
-		start = get_point(data->worldMap, 'E');
+		start = get_point(data->worldmap, 'E');
 	if (start.x == -1)
-		start = get_point(data->worldMap, 'W');
+		start = get_point(data->worldmap, 'W');
 	if (start.x == -1)
 		parse_exit(data);
 	temp = NULL;
 	i = -1;
-	temp = mapcpy(data->worldMap);
+	temp = mapcpy(data->worldmap);
 	if (!temp)
 		parse_exit(data);
 	floodfill(temp, start.y, start.x);
-	if (check_fill(temp))	
-		return (free_map(temp), 1);
-	return (free_map(temp), 0);
+	if (check_fill(temp))
+		return (1);
+	return (0);
 }

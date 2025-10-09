@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:19:18 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:15:45 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ void	parse_exit(t_data *data)
 			free(data->worldmap[i]);
 		free(data->worldmap);
 	}
+	i = -1;
+	if (data->draw)
+	{
+		if (data->draw->textures[0].img)
+			while (data->draw->textures[++i].img)
+				mlx_destroy_image(data->mlx, data->draw->textures[i].img);
+		free(data->draw);
+	}
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	if (data)
+		free(data);
 	ft_putstr_fd("Error\nInvalid map\n", 2);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:28:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,6 @@ void	calculate_texture_x(t_data *data, int x)
 }
 
 /**
-	@brief inicializes all the textures to images in memory
- */
-static void	texture_to_image(t_data *data)
-{
-	int	i;
-
-	data->draw->textures[0].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/bluestone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[1].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/colorstone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[2].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/greystone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[3].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/mossy.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	i = -1;
-	while (++i < TEX_NUMB)
-	{
-		if (!(data->draw->textures[i].img))
-			ft_exit(data);
-	}
-}
-
-/**
 	@brief inicializes all the textures to images 
 	and gets the information we need to get the pixels we want to
 	draw
@@ -116,7 +93,6 @@ void	ini_texture(t_data *data)
 
 	i = -1;
 	img = data->draw;
-	texture_to_image(data);
 	while (++i < (int)TEX_NUMB)
 	{
 		img->textures[i].addr = mlx_get_data_addr(
