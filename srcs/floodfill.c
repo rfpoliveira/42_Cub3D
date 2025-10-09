@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:09:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	floodfill(char **map, int col, int row)
 	size.y = col_len(map, size.x);
 	if (col < 0 || row < 0 || col > size.y -1|| row > size.x -1)
 		return ;
-	if (map[col][row] == '2' || map[col][row] == '1'
+	if (map[col][row] == '3' || map[col][row] == '1'
 		|| map[col][row] == '\t' || map[col][row] == ' ')
 		return ;
-	map[col][row] = '2';
+	map[col][row] = '3';
 	floodfill(map, col + 1, row);
 	floodfill(map, col - 1, row);
 	floodfill(map, col, row + 1);
@@ -90,11 +90,20 @@ int	check_fill(char **map)
 	{
 	x = -1;
 		while (map[y][++x])
-			if (map[y][x] == '2' && ((map[y - 1][x] != '1' && map[y - 1][x] != '2')
-				|| (map[y + 1][x] != '1' && map[y + 1][x] != '2')
-				|| (map[y][x - 1] != '1' && map[y][x - 1] != '2')
-				|| (map[y][x + 1] != '1' && map[y][x + 1] != '2')))
-				return (matrix_free(map), 0);
+		{
+			if (map[y][x] == '3')
+			{
+				if (ft_strchrlen(map[y], map[y][x]) > ft_strlen(map[y - 1])
+					|| ft_strchrlen(map[y], map[y][x]) > ft_strlen(map[y + 1]))
+					return (0);
+				else if (
+					(map[y - 1][x] != '1' && map[y - 1][x] != '3')
+					|| (map[y + 1][x] != '1' && map[y + 1][x] != '3')
+					||(map[y][x - 1] != '1' && map[y][x - 1] != '3')
+					|| (map[y][x + 1] != '1' && map[y][x + 1] != '3'))
+					return (0);
+			}
+		}
 	}
 	return (matrix_free(map), 1);
 }
@@ -103,12 +112,24 @@ int	fill(t_data *data)
 {
 	t_point	start;
 	char	**temp;
-	
-	start = get_point(data->worldmap, 'N');
+	int		i;
+
+	start = get_point(data->worldMap, 'N');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'S');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'E');
+	if (start.x == -1)
+		start = get_point(data->worldMap, 'W');
+	if (start.x == -1)
+		parse_exit(data);
 	temp = NULL;
-	temp = mapcpy(data->worldmap);
+	i = -1;
+	temp = mapcpy(data->worldMap);
 	if (!temp)
-		ft_exit(data);
+		parse_exit(data);
 	floodfill(temp, start.y, start.x);
-	return (check_fill(temp));
+	if (check_fill(temp))	
+		return (free_map(temp), 1);
+	return (free_map(temp), 0);
 }

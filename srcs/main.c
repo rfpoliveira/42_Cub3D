@@ -41,11 +41,6 @@ int	parse(char *file, t_data **data)
 		ft_putstr_fd("Error\nInvalid arguments or file\n", 2);
 		return (0);
 	}
-	/*if (!map_check(file, data))*/
-	/*{*/
-	/*	ft_putstr_fd("Error\nInvalid map\n", 2);*/
-	/*	return (0);*/
-	/*}*/
 	return (1);
 }
 
@@ -54,10 +49,7 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if (ac != 2)
-	{
-		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
-		return (0);
-	}
+		return (ft_putstr_fd("Error\nInvalid number of arguments\n", 2), 0);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		ft_exit(data);

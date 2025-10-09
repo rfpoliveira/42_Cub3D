@@ -97,9 +97,13 @@ void	data_ini(char *file, t_data *data)
 	data->mlx = mlx_init();
 	if (!(data->mlx))
 		ft_exit(data);
+	data->draw = ft_calloc(sizeof(t_draw_calc), 1);
+	if (!map_check(file, &data))
+		parse_exit(data);
+	printf("success\n");
+	parse_exit(data);
 	window_ini(data);
 	data->vars = malloc(sizeof(t_calc_vars));
-	data->draw = malloc(sizeof(t_draw_calc));
 	if (!data->vars || !data->draw)
 		ft_exit(data);
 	data->draw->img_buffer = malloc(sizeof(t_img));
