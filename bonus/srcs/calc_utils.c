@@ -6,11 +6,17 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:11:02 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 19:01:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
+
+void	rgb_to_hex(t_data *data)
+{
+	data->c_hex = (data->c_rgb[0] << 16) | (data->c_rgb[1] << 8) | data->c_rgb[2];
+	data->f_hex = (data->f_rgb[0] << 16) | (data->f_rgb[1] << 8) | data->f_rgb[2];
+}
 
 /*dirs: norte: y = -1 / planex = 0.66
 			sul:  y = 1 / planeX = -0.66
@@ -20,27 +26,27 @@
 
 void get_dir_vars(t_data *data, char p_dir)
 {
-	if (p_dir == 'N' || p_dir == 'S')
+	if (p_dir == 'W' || p_dir == 'E')
 		data->dir_vec_x = 0;
-	else if (p_dir == 'E')
+	else if (p_dir == 'S')
 		data->dir_vec_x = 1;
 	else
 		data->dir_vec_x = -1;
-	if (p_dir == 'E' || p_dir == 'W')
+	if (p_dir == 'N' || p_dir == 'S')
 		data->dir_vec_y = 0;
-	else if (p_dir == 'S')
+	else if (p_dir == 'W')
 		data->dir_vec_y = 1;
 	else
 		data->dir_vec_y = -1;
-	if (p_dir == 'E' || p_dir == 'W')
+	if (p_dir == 'S' || p_dir == 'N')
 		data->plane_x = 0;
-	else if (p_dir == 'S')
+	else if (p_dir == 'W')
 		data->plane_x = -0.66;
 	else
 		data->plane_x = 0.66;
-	if (p_dir == 'N' || p_dir == 'S')
+	if (p_dir == 'W' || p_dir == 'E')
 		data->plane_y = 0;
-	else if (p_dir == 'W')
+	else if (p_dir == 'N')
 		data->plane_y = -0.66;
 	else
 		data->plane_y = 0.66;
@@ -85,8 +91,9 @@ void	something_hit(t_data *data)
 	int				id_hit;
 	t_calc_vars		*vars;
 
+	id_hit = 0;
 	vars = data->vars;
-	if (data->worldmap[vars->mapx][vars->mapy] > '0')
+	if (data->worldmap[vars->mapx][vars->mapy] == '1')
 		vars->hit = 1;
 	if (data->controls[6] && data->worldmap[vars->mapx][vars->mapy] == '2'
 	&& (vars->camera_x > -0.1 && vars->camera_x < 0.1)

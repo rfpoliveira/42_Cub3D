@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/26 14:29:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 19:09:50 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ static void	window_ini(t_data *data)
 
 void	data_ini(char *file, t_data *data)
 {
-	if (!map_check(file, &data))
-		parse_exit(data);
 	data->mlx = mlx_init();
 	if (!(data->mlx))
 		ft_exit(data);
@@ -104,6 +102,8 @@ void	data_ini(char *file, t_data *data)
 	data->draw = malloc(sizeof(t_draw_calc));
 	if (!data->vars || !data->draw)
 		ft_exit(data);
+	if (!map_check(file, &data))
+		parse_exit(data);
 	data->draw->img_buffer = malloc(sizeof(t_img));
 	if (!data->draw->img_buffer)
 		ft_exit(data);
@@ -112,6 +112,7 @@ void	data_ini(char *file, t_data *data)
 	controls_ini(data);
 	draw_ini(data);
 	ini_texture(data);
+	rgb_to_hex(data);
 	enemies_ini(data);
 	ene_drawing_ini(data);
 }

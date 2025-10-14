@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:27:43 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	text_selec_wall(t_data *data, double step, double pos_tex, int x)
 		else if (data->vars->side_hit == 0 && data->vars->dir_stepx == 1)
 			texture_idx = 1;
 		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == -1)
-			texture_idx = 2;
-		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
 			texture_idx = 3;
+		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
+			texture_idx = 2;
 		color = get_color(data, tex_y, texture_idx);
 		pos_tex += step;
 		my_mlx_pixel_put(data->draw->img_buffer, x, y, color);
@@ -81,21 +81,10 @@ void	calculate_texture_x(t_data *data, int x)
 	text_selec_wall(data, step, pos_tex, x);
 }
 
-/**
-	@brief inicializes all the textures to images in memory
- */
 static void	texture_to_image(t_data *data)
 {
 	int	i;
 
-	data->draw->textures[0].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/bluestone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[1].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/colorstone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[2].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/greystone.xpm", &data->draw->tex_w, &data->draw->tex_h);
-	data->draw->textures[3].img = mlx_xpm_file_to_image(data->mlx,
-			"textures/mossy.xpm", &data->draw->tex_w, &data->draw->tex_h);
 	data->draw->textures[4].img = mlx_xpm_file_to_image(data->mlx,
 			"textures/demon.xpm", &data->draw->tex_w, &data->draw->tex_h);
 	data->draw->textures[5].img = mlx_xpm_file_to_image(data->mlx,

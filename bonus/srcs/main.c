@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:22:01 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:39:35 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:19:57 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 int	game_loop(t_data *data)
 {
-	clear_img(data, 0x00FFDD, 0x808080);
+	clear_img(data, data->c_hex, data->f_hex);
 	handle_inputs(data);
 	raycaster(data);
 	draw_enemies(data);

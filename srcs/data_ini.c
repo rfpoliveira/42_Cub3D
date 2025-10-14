@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/09 16:47:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:07:25 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void	data_ini(char *file, t_data *data)
 	controls_ini(data);
 	draw_ini(data);
 	ini_texture(data);
+	rgb_to_hex(data);
 }

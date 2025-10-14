@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/09 16:18:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:43:20 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct s_data
 	double		delta_time;
 	int			f_rgb[3];
 	int			c_rgb[3];
+	int			f_hex;
+	int			c_hex;
 	bool		controls[CNTLS_NUMB];
 	t_calc_vars	*vars;
 	t_draw_calc	*draw;
@@ -114,6 +116,7 @@ void	data_ini(char *file, t_data *data);
 void	ini_texture(t_data *data);
 char	get_player(t_data *data);
 void	get_dir_vars(t_data *data, char p_dir);
+void	rgb_to_hex(t_data *data);
 
 //inputs
 void	handle_inputs(t_data *data);

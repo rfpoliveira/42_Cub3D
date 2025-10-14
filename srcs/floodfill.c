@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/09 16:43:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:38:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int	fill(t_data *data)
 {
 	t_point	start;
 	char	**temp;
-	int		i;
 
 	start = get_point(data->worldmap, 'N');
 	if (start.x == -1)
@@ -124,7 +123,6 @@ int	fill(t_data *data)
 	if (start.x == -1)
 		parse_exit(data);
 	temp = NULL;
-	i = -1;
 	temp = mapcpy(data->worldmap);
 	if (!temp)
 		parse_exit(data);

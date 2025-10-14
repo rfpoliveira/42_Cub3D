@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:12:08 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/09 16:28:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:54:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	text_selec_wall(t_data *data, double step, double pos_tex, int x)
 		else if (data->vars->side_hit == 0 && data->vars->dir_stepx == 1)
 			texture_idx = 1;
 		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == -1)
-			texture_idx = 2;
-		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
 			texture_idx = 3;
+		else if (data->vars->side_hit == 1 && data->vars->dir_stepy == 1)
+			texture_idx = 2;
 		color = get_color(data, tex_y, texture_idx);
 		pos_tex += step;
 		my_mlx_pixel_put(data->draw->img_buffer, x, y, color);
