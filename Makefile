@@ -22,7 +22,7 @@ MLX_PATH = minilibx-linux
 
 RM = rm -rf
 AR = ar rcs
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra -O3
 SILENT_MAKE = make -s extra
 
 #==============================================================================#

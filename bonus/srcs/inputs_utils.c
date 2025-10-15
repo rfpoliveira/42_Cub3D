@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: david-fe <david-fe@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:16:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:37:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:12:11 by david-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	press_3(t_data *data, double movespeed)
 	float	worldmapx;
 	float	worldmapy;
 
-	worldmapx = (data->pos_x + data->dir_vec_y * movespeed);
+	worldmapx = (data->pos_x - data->dir_vec_y * movespeed);
 	worldmapy = (data->pos_y + data->dir_vec_x * movespeed);
 	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
 	data->worldmap[(int)(worldmapx + 0.2)][(int)(data->pos_y)] == '0' &&
@@ -69,7 +69,7 @@ void	press_2(t_data *data, double movespeed)
 	float	worldmapy;
 
 	worldmapx = (data->pos_x + data->dir_vec_y * movespeed);
-	worldmapy = (data->pos_y + data->dir_vec_y * movespeed);
+	worldmapy = (data->pos_y - data->dir_vec_x * movespeed);
 	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
 	data->worldmap[(int)(worldmapx + 0.2)][(int)(data->pos_y)] == '0' &&
 	data->worldmap[(int)(worldmapx - 0.2)][(int)(data->pos_y)] == '0')
