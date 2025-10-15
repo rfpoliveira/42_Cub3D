@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:08:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/14 19:09:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:56:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	controls_ini(t_data *data)
 
 static void	vars_ini(t_data *data)
 {
-	char p_dir;
+	char	p_dir;
 
 	p_dir = get_player(data);
 	data->curr_time = 0;
@@ -62,15 +62,15 @@ static void	vars_ini(t_data *data)
  */
 static void	draw_ini(t_data *data)
 {
-	data->draw->img_buffer->img = mlx_new_image(data->mlx,
-	data->vars->win_w, data->vars->win_h);
+	data->draw->img_buffer->img = mlx_new_image(data->mlx, \
+data->vars->win_w, data->vars->win_h);
 	if (!(data->draw->img_buffer->img))
 		ft_exit(data);
-	data->draw->img_buffer->addr = mlx_get_data_addr(
-		data->draw->img_buffer->img,
-		&data->draw->img_buffer->bpp,
-		&data->draw->img_buffer->line_len,
-		&data->draw->img_buffer->endian);
+	data->draw->img_buffer->addr = mlx_get_data_addr(\
+data->draw->img_buffer->img, \
+&data->draw->img_buffer->bpp, \
+&data->draw->img_buffer->line_len, \
+&data->draw->img_buffer->endian);
 	if (!(data->draw->img_buffer->addr))
 		ft_exit(data);
 	data->draw->end = 0;
@@ -79,12 +79,13 @@ static void	draw_ini(t_data *data)
 	data->draw->tex_h = 64;
 	data->draw->tex_w = 64;
 }
+
 static void	window_ini(t_data *data)
 {
-	data->win = mlx_new_window(data->mlx, 
-							(int)SCREENWIDTH, 
-							(int)SCREENHEIGHT, 
-							"Cub3d da Nasa");
+	data->win = mlx_new_window(data->mlx, \
+(int)SCREENWIDTH, \
+(int)SCREENHEIGHT, \
+"Cub3d da Nasa");
 	if (!(data->win))
 		ft_exit(data);
 }

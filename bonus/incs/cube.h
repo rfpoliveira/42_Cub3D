@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/14 19:02:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:46:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,5 +231,6 @@ int		check_rgb(char *file, t_data **data);
 int		ft_strchrlen(char *s, char c);
 void	count_rgb(char **map, t_data **data, int size);
 void	check_count(char *str, t_data **data);
+t_point	assign_point(t_point *p, int x, int y);
 
 #endif

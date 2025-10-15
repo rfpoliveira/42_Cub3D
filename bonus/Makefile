@@ -3,7 +3,8 @@
 #==============================================================================#
 
 SRCS = $(addprefix $(SRCS_PATH)/, calc_utils.c calculation.c data_ini.c distance.c draw_enemy_utils.c draw.c enemies_utils.c enemies.c \
-floodfill.c fps_counter.c ft_exit.c inputs_utils.c inputs.c main.c parse_utils.c parse.c raycaster.c textures.c parse_utils_2.c rgb_set.c)
+floodfill.c fps_counter.c ft_exit.c inputs_utils.c inputs.c main.c parse_utils.c parse.c raycaster.c textures.c parse_utils_2.c rgb_set.c \
+floodfill_utils.c rgb_utils.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

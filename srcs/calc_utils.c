@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:11:02 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/14 16:05:04 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:57:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	rgb_to_hex(t_data *data)
 {
-	data->c_hex = (data->c_rgb[0] << 16) | (data->c_rgb[1] << 8) | data->c_rgb[2];
-	data->f_hex = (data->f_rgb[0] << 16) | (data->f_rgb[1] << 8) | data->f_rgb[2];
+	data->c_hex = (data->c_rgb[0] << 16) | \
+(data->c_rgb[1] << 8) | data->c_rgb[2];
+	data->f_hex = (data->f_rgb[0] << 16) | \
+(data->f_rgb[1] << 8) | data->f_rgb[2];
 }
 
 /*dirs: norte: y = -1 / planex = 0.66
@@ -31,7 +33,7 @@ void	rgb_to_hex(t_data *data)
 			
 */
 
-void get_dir_vars(t_data *data, char p_dir)
+void	get_dir_vars(t_data *data, char p_dir)
 {
 	if (p_dir == 'W' || p_dir == 'E')
 		data->dir_vec_x = 0;
@@ -61,9 +63,9 @@ void get_dir_vars(t_data *data, char p_dir)
 
 char	get_player(t_data *data)
 {
-	t_point player;
+	t_point	player;
 	char	dir;
-	
+
 	player = get_point(data->worldmap, 'N');
 	dir = 'N';
 	if (player.x == -1)

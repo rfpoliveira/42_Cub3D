@@ -6,12 +6,11 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:46:30 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/09 16:18:05 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:00:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
-
 
 int	extension_finder(char *file)
 {
@@ -63,8 +62,8 @@ void	count_text(char *txt, char **map, t_data **data)
 
 int	check_text(char **map, t_data **data, int size)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 	char	*count;
 
 	y = -1;
@@ -86,18 +85,6 @@ int	check_text(char **map, t_data **data, int size)
 	}
 	count_text(count, map, data);
 	return (1);
-}
-
-void	free_map(char ***map)
-{
-	int	i;
-
-	i = -1;
-	while ((*map)[++i])
-	{
-			free((*map)[i]);
-	}
-	free(*map);
 }
 
 void	cpy_file(char ***map, char *file, int size)

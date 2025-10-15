@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:05:23 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/09 16:42:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:52:33 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_text(char **map, t_data **data, int y, int x)
 {
-	char	*temp;
+	char		*temp;
 	static int	n = 0;
 
 	temp = NULL;
@@ -22,7 +22,7 @@ void	set_text(char **map, t_data **data, int y, int x)
 	(*data)->draw->tex_w = 64;
 	(*data)->draw->tex_h = 64;
 	(*data)->draw->textures[n].img = mlx_xpm_file_to_image((*data)->mlx, temp,
-		&(*data)->draw->tex_w, &(*data)->draw->tex_h);
+			&(*data)->draw->tex_w, &(*data)->draw->tex_h);
 	n++;
 	free(temp);
 	if (!(*data)->draw->textures[n - 1].img)
@@ -44,7 +44,7 @@ char	**valid_map(char **map)
 		{
 			if (skip_spaces(&map[y][x]) != -1)
 				x += skip_spaces(&map[y][x]);
-			if (start == -1 && (map[y][x] == 'C' 
+			if (start == -1 && (map[y][x] == 'C'
 				|| map[y][x] == 'F' || map[y][x] == 'S'
 				|| map[y][x] == 'N' || map[y][x] == 'W' || map[y][x] == 'E'))
 				break ;
@@ -80,7 +80,7 @@ int	char_check(char **map)
 				continue ;
 			}
 			else
-				return (0); 
+				return (0);
 		}
 	}
 	return (n == 1);
@@ -98,7 +98,7 @@ int	map_check(char *file, t_data **data)
 	if (!map)
 		return (0);
 	(*data)->worldmap = valid_map(map);
-	if (!(*data)->worldmap || !char_check((*data)->worldmap) 
+	if (!(*data)->worldmap || !char_check((*data)->worldmap)
 		|| !valid_rgb(map, data, 0, size)
 		|| !fill(*data) || !check_text(map, data, size))
 		return (free_map(&map), 0);

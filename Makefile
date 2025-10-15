@@ -4,7 +4,7 @@
 
 SRCS = $(addprefix $(SRCS_PATH)/, calc_utils.c calculation.c data_ini.c draw.c \
 floodfill.c fps_counter.c ft_exit.c inputs_utils.c inputs.c main.c parse_utils.c parse.c raycaster.c \
-textures.c parse_utils_2.c rgb_set.c)
+textures.c parse_utils_2.c rgb_set.c rgb_utils.c floodfill_utils.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

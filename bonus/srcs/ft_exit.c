@@ -6,11 +6,21 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:31:45 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/09/30 16:43:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:59:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
+
+void	free_map(char ***map)
+{
+	int	i;
+
+	i = -1;
+	while ((*map)[++i])
+		free((*map)[i]);
+	free(*map);
+}
 
 void	free_lst(t_enemy *enemies)
 {

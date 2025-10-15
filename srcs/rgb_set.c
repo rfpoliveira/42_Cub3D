@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:36:37 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/09/24 13:58:35 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:56:32 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	f_rgb_set(char *file, t_data **data, int x)
 {
-	char *temp;
+	char	*temp;
 
 	temp = ft_substr(file, x, check_digit(&file[x]));
 	(*data)->f_rgb[0] = ft_atoi(temp);
@@ -39,7 +39,7 @@ void	f_rgb_set(char *file, t_data **data, int x)
 
 void	c_rgb_set(char *file, t_data **data, int x)
 {
-	char *temp;
+	char	*temp;
 
 	temp = ft_substr(file, x, check_digit(&file[x]));
 	(*data)->c_rgb[0] = ft_atoi(temp);
@@ -117,55 +117,4 @@ int	valid_rgb(char **map, t_data **data, int check, int size)
 		}
 	}
 	return (0);
-}
-
-void	count_rgb(char **map, t_data **data, int size)
-{
-	int	i;
-	int	y;
-	int	x;
-	char *rgb;
-
-	y = -1;
-	i = -1;
-	rgb = ft_calloc(sizeof(char), size);
-	while (map[++y])
-	{
-		x = -1;
-		while (map[y][++x])
-		{
-			if (map[y][x] == 'C')
-				rgb[++i] = 'C';
-			if (map[y][x] == 'F')
-				rgb[++i] = 'F';
-		}
-	}
-	check_count(rgb, data);
-}
-void	check_count(char *str, t_data **data)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_strlen(ft_strchr(str, str[i])) != ft_strlen(ft_strrchr(str, str[i])))
-		{
-			free(str);
-			parse_exit(*data);
-		}
-	}
-	free(str);
-}
-
-int	ft_strchrlen(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	return (i);
 }

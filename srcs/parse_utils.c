@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:19:18 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/09 16:15:45 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:53:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	parse_exit(t_data *data)
 
 	i = -1;
 	if (data->worldmap)
-	{
-		while (data->worldmap[++i])
-			free(data->worldmap[i]);
-		free(data->worldmap);
-	}
+		matrix_free(data->worldmap);
 	i = -1;
 	if (data->draw)
 	{
@@ -42,7 +38,7 @@ void	parse_exit(t_data *data)
 	exit(1);
 }
 
-char **mapcpy(char **map)
+char	**mapcpy(char **map)
 {
 	int		y;
 	char	**temp;
@@ -86,7 +82,7 @@ int	check_digit(char *file)
 	while (file[++x])
 	{
 		if (file[x] >= '0' && file[x] <= '9')
-			n++;	
+			n++;
 		if (file[x] == ' ' || file[x] == '\t'
 			|| file[x] == '\n' || file[x] == ',')
 			return (n);

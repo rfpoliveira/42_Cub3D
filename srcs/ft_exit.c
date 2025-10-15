@@ -6,11 +6,21 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:31:45 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/09 16:35:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:54:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/cube.h"
+
+void	free_map(char ***map)
+{
+	int	i;
+
+	i = -1;
+	while ((*map)[++i])
+		free((*map)[i]);
+	free(*map);
+}
 
 /**
 	@brief can free all the memory and exit the program 
@@ -19,10 +29,10 @@
 
 void	ft_free_util(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(++i < TEX_NUMB)
+	while (++i < TEX_NUMB)
 		mlx_destroy_image(data->mlx, data->draw->textures[i].img);
 	if (data->draw->img_buffer->img)
 		mlx_destroy_image(data->mlx, data->draw->img_buffer->img);

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/14 14:38:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:54:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,18 @@ t_point	get_point(char **map, char c)
 		while (map[y][++x])
 		{
 			if (map[y][x] == c)
-			{
-				p.y = y;
-				p.x = x;
-				return (p);
-			}
+				return (assign_point(&p, x, y));
 		}
 	}
 	if (c == '\0' && map[y - 1][x] == '\0')
-	{
-		p.x = x - 1;
-		p.y = y;
-	}
+		assign_point(&p, x - 1, y);
 	return (p);
 }
 
 int	col_len(char **map, int x)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_point	p;
 
 	p = get_point(map, '\0');
@@ -56,7 +49,7 @@ int	col_len(char **map, int x)
 		while (map[i][++j] && j != x)
 		{
 			if (x > p.x && i == p.y - 1)
-				return (i);	
+				return (i);
 		}
 	}
 	return (i);
@@ -68,10 +61,10 @@ void	floodfill(char **map, int col, int row)
 
 	size.x = ft_strlen(map[col]);
 	size.y = col_len(map, size.x);
-	if (col < 0 || row < 0 || col > size.y -1|| row > size.x -1)
+	if (col < 0 || row < 0 || col > size.y - 1 || row > size.x - 1)
 		return ;
-	if (map[col][row] == '3' || map[col][row] == '1'
-		|| map[col][row] == '\t' || map[col][row] == ' ')
+	if (map[col][row] == '3' || map[col][row] == '1' \
+|| map[col][row] == '\t' || map[col][row] == ' ')
 		return ;
 	map[col][row] = '3';
 	floodfill(map, col + 1, row);
@@ -88,7 +81,7 @@ int	check_fill(char **map)
 	y = -1;
 	while (map[++y])
 	{
-	x = -1;
+		x = -1;
 		while (map[y][++x])
 		{
 			if (map[y][x] == '3')
@@ -99,7 +92,7 @@ int	check_fill(char **map)
 				else if (
 					(map[y - 1][x] != '1' && map[y - 1][x] != '3')
 					|| (map[y + 1][x] != '1' && map[y + 1][x] != '3')
-					||(map[y][x - 1] != '1' && map[y][x - 1] != '3')
+					|| (map[y][x - 1] != '1' && map[y][x - 1] != '3')
 					|| (map[y][x + 1] != '1' && map[y][x + 1] != '3'))
 					return (0);
 			}
