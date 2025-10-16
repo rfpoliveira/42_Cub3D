@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:26:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/10/15 14:54:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:39:12 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_point	get_point(char **map, char c)
 
 	y = -1;
 	p.y = y;
+	x = -1;
 	while (map[++y])
 	{
 		x = -1;

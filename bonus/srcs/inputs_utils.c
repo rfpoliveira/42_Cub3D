@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:16:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/15 15:48:57 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:55:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	press_0(t_data *data, double movespeed)
 
 	worldmapx = (data->pos_x + data->dir_vec_x * movespeed);
 	worldmapy = (data->pos_y + data->dir_vec_y * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0')
+	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
+		collision_x(data, worldmapx) == 0)
 		data->pos_x = worldmapx;
-	if (data->worldmap[(int)(data->pos_x)][(int)worldmapy] == '0')
+	if (data->worldmap[(int)(data->pos_x)][(int)worldmapy] == '0' &&
+		collision_y(data, worldmapy) == 0)
 		data->pos_y = worldmapy;
 }
 
@@ -32,9 +34,11 @@ void	press_1(t_data *data, double movespeed)
 
 	worldmapx = (data->pos_x - data->dir_vec_x * movespeed);
 	worldmapy = (data->pos_y - data->dir_vec_y * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0')
+	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
+		collision_x(data, worldmapx) == 0)
 		data->pos_x = worldmapx;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0')
+	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0' &&
+		collision_y(data, worldmapy) == 0)
 		data->pos_y = worldmapy;
 }
 
@@ -45,9 +49,11 @@ void	press_3(t_data *data, double movespeed)
 
 	worldmapx = (data->pos_x - data->dir_vec_y * movespeed);
 	worldmapy = (data->pos_y + data->dir_vec_x * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0')
+	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
+		collision_x(data, worldmapx) == 0)
 		data->pos_x = worldmapx;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0')
+	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0' &&
+		collision_y(data, worldmapy) == 0)
 		data->pos_y = worldmapy;
 }
 
@@ -58,9 +64,11 @@ void	press_2(t_data *data, double movespeed)
 
 	worldmapx = (data->pos_x + data->dir_vec_y * movespeed);
 	worldmapy = (data->pos_y - data->dir_vec_x * movespeed);
-	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0')
+	if (data->worldmap[(int)(worldmapx)][(int)data->pos_y] == '0' &&
+		collision_x(data, worldmapx) == 0)
 		data->pos_x = worldmapx;
-	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0')
+	if (data->worldmap[(int)(data->pos_x)][(int)(worldmapy)] == '0' &&
+		collision_y(data, worldmapy) == 0)
 		data->pos_y = worldmapy;
 }
 
