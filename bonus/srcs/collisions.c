@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 15:54:24 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/16 17:00:20 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/25 12:11:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	collision_x(t_data *data, double x)
 {
-	double  old_y;
-	double  rad;
+	double	old_y;
+	double	rad;
 
 	rad = 0.2;
 	old_y = data->pos_y;
@@ -31,10 +31,10 @@ data->worldmap[(int)(x - rad)][(int)(old_y - rad)] != '0')
 	return (0);
 }
 
-int collision_y(t_data *data, double y)
+int	collision_y(t_data *data, double y)
 {
-	double  old_x;
-	double  rad;
+	double	old_x;
+	double	rad;
 
 	rad = 0.2;
 	old_x = data->pos_x;

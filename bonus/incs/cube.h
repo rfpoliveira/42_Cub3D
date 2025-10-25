@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/15 14:46:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/25 12:12:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,30 +118,30 @@ typedef struct s_enemy_draw
 
 typedef struct s_data
 {
-	char		**worldmap;
-	void		*mlx;
-	void		*win;
-	double		pos_x;
-	double		pos_y;
-	double		plane_x;
-	double		plane_y;
-	double		dir_vec_x;
-	double		dir_vec_y;
-	double		curr_time;
-	double		old_time;
-	double		delta_time;
-	int			f_rgb[3];
-	int			c_rgb[3];
-	int			f_hex;
-	int			c_hex;
-	int		gun_animation;
-	int		shoot_flag;
-	t_enemy *enemies;
-	int		numb_of_enemies;
-	double	*buffer_z;
-	bool	controls[CNTLS_NUMB];
-	t_calc_vars *vars;
-	t_draw_calc *draw;
+	char			**worldmap;
+	void			*mlx;
+	void			*win;
+	double			pos_x;
+	double			pos_y;
+	double			plane_x;
+	double			plane_y;
+	double			dir_vec_x;
+	double			dir_vec_y;
+	double			curr_time;
+	double			old_time;
+	double			delta_time;
+	int				f_rgb[3];
+	int				c_rgb[3];
+	int				f_hex;
+	int				c_hex;
+	int				gun_animation;
+	int				shoot_flag;
+	t_enemy			*enemies;
+	int				numb_of_enemies;
+	double			*buffer_z;
+	bool			controls[CNTLS_NUMB];
+	t_calc_vars		*vars;
+	t_draw_calc		*draw;
 	t_enemy_draw	*drawing_vars;
 }	t_data;
 /*============================================================================#
