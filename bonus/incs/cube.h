@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 17:15:39 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/10/25 12:12:49 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/10/25 15:06:40 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,5 +232,7 @@ int		ft_strchrlen(char *s, char c);
 void	count_rgb(char **map, t_data **data, int size);
 void	check_count(char *str, t_data **data);
 t_point	assign_point(t_point *p, int x, int y);
+int		collision_x(t_data *data, double x);
+int		collision_y(t_data *data, double y);
 
 #endif
