@@ -41,7 +41,7 @@ int	parse(char *file, t_data **data)
 		if (*data)
 			free(*data);
 		ft_putstr_fd("Error\nInvalid arguments or file\n", 2);
-		return (0);
+		exit(0);
 	}
 	return (1);
 }
