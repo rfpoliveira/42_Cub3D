@@ -89,13 +89,13 @@ int	check_fill(char **map)
 			{
 				if (ft_strchrlen(map[y], map[y][x]) > ft_strlen(map[y - 1])
 					|| ft_strchrlen(map[y], map[y][x]) > ft_strlen(map[y + 1]))
-					return (0);
+					return (free_map(&map), 0);
 				else if (
 					(map[y - 1][x] != '1' && map[y - 1][x] != '3')
 					|| (map[y + 1][x] != '1' && map[y + 1][x] != '3')
 					|| (map[y][x - 1] != '1' && map[y][x - 1] != '3')
 					|| (map[y][x + 1] != '1' && map[y][x + 1] != '3'))
-					return (0);
+					return (free_map(&map), 0);
 			}
 		}
 	}

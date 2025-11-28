@@ -57,33 +57,34 @@ void	count_text(char *txt, char **map, t_data **data)
 				txt[++i] = 'E';
 		}
 	}
-	check_count(txt, data);
+	check_count(txt, map, data);
 }
 
 int	check_text(char **map, t_data **data, int size)
 {
-	int		y;
-	int		x;
+	t_point	p;
 	char	*count;
 
-	y = -1;
+	p.y = -1;
 	count = ft_calloc(sizeof(char), size);
-	while (map[++y])
+	count_text(count, map, data);
+	while (map[++p.y])
 	{
-		x = -1;
-		while (map[y][++x])
+		p.x = -1;
+		while (map[p.y][++p.x])
 		{
-			if (map[y][x] == 'N' && map[y][x + 1] == 'O')
-				set_text(map, data, y, x + 2);
-			if (map[y][x] == 'S' && map[y][x + 1] == 'O')
-				set_text(map, data, y, x + 2);
-			if (map[y][x] == 'W' && map[y][x + 1] == 'E')
-				set_text(map, data, y, x + 2);
-			if (map[y][x] == 'E' && map[y][x + 1] == 'A')
-				set_text(map, data, y, x + 2);
+			if (map[p.y][p.x] == 'N' && map[p.y][p.x + 1] == 'O')
+				set_text(map, data, p, count);
+			if (map[p.y][p.x] == 'S' && map[p.y][p.x + 1] == 'O')
+				set_text(map, data, p, count);
+			if (map[p.y][p.x] == 'W' && map[p.y][p.x + 1] == 'E')
+				set_text(map, data, p, count);
+			if (map[p.y][p.x] == 'E' && map[p.y][p.x + 1] == 'A')
+				set_text(map, data, p, count);
 		}
 	}
-	count_text(count, map, data);
+	if (count)
+		free(count);
 	return (1);
 }
 

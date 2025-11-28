@@ -8,7 +8,7 @@ textures.c parse_utils_2.c rgb_set.c rgb_utils.c floodfill_utils.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
-NAME = cub3d
+NAME = cub3D
 
 BUILD_PATH = .build
 SRCS_PATH = ./srcs

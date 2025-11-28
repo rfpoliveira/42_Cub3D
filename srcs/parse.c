@@ -12,13 +12,29 @@
 
 #include "../incs/cube.h"
 
-void	set_text(char **map, t_data **data, int y, int x)
+static void	free_all(char **map, char *str, t_data **data)
+{
+	if (str != NULL)
+		free(str);
+	free_map(&map);
+	parse_exit(*data);
+}
+
+void	set_text(char **map, t_data **data, t_point p, char *count)
 {
 	char		*temp;
-	static int	n = 0;
+	static int	n;
+	int			fd;
 
 	temp = NULL;
-	temp = ft_strtrim(&map[y][x], "\t ");
+	temp = ft_strtrim(&map[p.y][p.x + 2], "\t ");
+	fd = open(temp, O_RDONLY);
+	if (fd == -1)
+	{
+		free(temp);
+		free_all(map, count, data);
+	}
+	close(fd);
 	(*data)->draw->tex_w = 64;
 	(*data)->draw->tex_h = 64;
 	(*data)->draw->textures[n].img = mlx_xpm_file_to_image((*data)->mlx, temp,
@@ -26,7 +42,7 @@ void	set_text(char **map, t_data **data, int y, int x)
 	n++;
 	free(temp);
 	if (!(*data)->draw->textures[n - 1].img)
-		parse_exit(*data);
+		free_all(map, count, data);
 }
 
 char	**valid_map(char **map)

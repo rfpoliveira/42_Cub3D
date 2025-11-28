@@ -33,24 +33,27 @@ void	count_rgb(char **map, t_data **data, int size)
 				rgb[++i] = 'F';
 		}
 	}
-	check_count(rgb, data);
+	check_count(rgb, map, data);
+	if (rgb)
+		free(rgb);
 }
 
-void	check_count(char *str, t_data **data)
+void	check_count(char *str, char **map, t_data **data)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i])
+		i++;
+	if (i == 0 || ((str[i - 1] == 'C' || str[i - 1] == 'F') && i != 2)
+		|| ((str[i - 1] == 'N' || str[i - 1] == 'S'
+				|| str[i - 1] == 'W' || str[i - 1] == 'E') && i != 4))
 	{
-		if (ft_strlen(ft_strchr(str, str[i])) \
-!= ft_strlen(ft_strrchr(str, str[i])))
-		{
-			free(str);
-			parse_exit(*data);
-		}
+		free(str);
+		str = NULL;
+		free_map(&map);
+		parse_exit(*data);
 	}
-	free(str);
 }
 
 int	ft_strchrlen(char *s, char c)

@@ -12,63 +12,84 @@
 
 #include "../incs/cube.h"
 
-void	f_rgb_set(char *file, t_data **data, int x)
+static int	rgb_parse(char *file)
 {
-	char	*temp;
+	int	i;
+	int	count;
 
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->f_rgb[0] = ft_atoi(temp);
-	free(temp);
-	x += check_digit(&file[x]);
-	x += skip_spaces(&file[x]);
-	if (file[x] == ',')
-		x++;
-	x += skip_spaces(&file[x]);
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->f_rgb[1] = ft_atoi(temp);
-	free(temp);
-	x += check_digit(&file[x]);
-	x += skip_spaces(&file[x]);
-	if (file[x] == ',')
-		x++;
-	x += skip_spaces(&file[x]);
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->f_rgb[2] = ft_atoi(temp);
-	free(temp);
+	i = -1;
+	count = 0;
+	while (file[++i])
+		if (file[i] == ',')
+			count++;
+	if (count != 2)
+		return (0);
+	return (1);
 }
 
-void	c_rgb_set(char *file, t_data **data, int x)
+int	f_rgb_set(char *file, t_data **data, int x)
 {
 	char	*temp;
+	char	*num;
+	int		i;
+	int		n;
 
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->c_rgb[0] = ft_atoi(temp);
-	free(temp);
-	x += check_digit(&file[x]);
-	x += skip_spaces(&file[x]);
-	if (file[x] == ',')
-		x++;
-	x += skip_spaces(&file[x]);
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->c_rgb[1] = ft_atoi(temp);
-	free(temp);
-	x += check_digit(&file[x]);
-	x += skip_spaces(&file[x]);
-	if (file[x] == ',')
-		x++;
-	x += skip_spaces(&file[x]);
-	temp = ft_substr(file, x, check_digit(&file[x]));
-	(*data)->c_rgb[2] = ft_atoi(temp);
-	free(temp);
+	n = -1;
+	i = 0;
+	if (!rgb_parse(file))
+		return (0);
+	while (++n < 3 && file[x])
+	{
+		x += (i != 0) * (file[x] == ',');
+		i = ft_strchrlen(&file[x], ',');
+		temp = ft_substr(file, x, i);
+		num = ft_strtrim(temp, " \t");
+		free(temp);
+		if (!(*num) || check_digit(num) == -1)
+			return (free(num), 0);
+		(*data)->f_rgb[n] = ft_atoi(num);
+		if ((*data)->f_rgb[n] < 0 || (*data)->f_rgb[n] > 255)
+			return (free(num), 0);
+		x += i;
+		free(num);
+	}
+	return (1);
+}
+
+int	c_rgb_set(char *file, t_data **data, int x)
+{
+	char	*temp;
+	char	*num;
+	int		i;
+	int		n;
+
+	n = -1;
+	i = 0;
+	if (!rgb_parse(file))
+		return (0);
+	while (++n < 3 && file[x])
+	{
+		x += (i != 0) * (file[x] == ',');
+		i = ft_strchrlen(&file[x], ',');
+		temp = ft_substr(file, x, i);
+		num = ft_strtrim(temp, " \t");
+		free(temp);
+		if (!(*num) || check_digit(num) == -1)
+			return (free(num), 0);
+		(*data)->c_rgb[n] = ft_atoi(num);
+		if ((*data)->c_rgb[n] < 0 || (*data)->c_rgb[n] > 255)
+			return (free(num), 0);
+		x += i;
+		free(num);
+	}
+	return (1);
 }
 
 int	check_rgb(char *file, t_data **data)
 {
 	int	x;
-	int	n;
 
 	x = -1;
-	n = 0;
 	while (file[++x])
 	{
 		if (skip_spaces(&file[x]) == -1)
@@ -77,17 +98,17 @@ int	check_rgb(char *file, t_data **data)
 		if (file[x] == 'F' && file[++x])
 		{
 			x += skip_spaces(&file[x]);
-			f_rgb_set(file, data, x);
+			if (!f_rgb_set(file, data, x))
+				return (0);
 		}
 		if (file[x] == 'C' && file[++x])
 		{
 			x += skip_spaces(&file[x]);
-			c_rgb_set(file, data, x);
+			if (!c_rgb_set(file, data, x))
+				return (0);
 		}
-		if (file[x] == ',')
-			n++;
 	}
-	return (n < 4);
+	return (1);
 }
 
 int	valid_rgb(char **map, t_data **data, int check, int size)
@@ -106,8 +127,8 @@ int	valid_rgb(char **map, t_data **data, int check, int size)
 				x += skip_spaces(map[y]);
 			if (!check && (map[y][x] == 'C' || map[y][x] == 'F'))
 			{
-				check_rgb(map[y], data);
-				check++;
+				if (check_rgb(map[y], data))
+					check++;
 				break ;
 			}
 			else if (check && (map[y][x] == 'C' || map[y][x] == 'F'))

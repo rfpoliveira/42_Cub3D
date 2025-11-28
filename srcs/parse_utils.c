@@ -83,11 +83,10 @@ int	check_digit(char *file)
 	{
 		if (file[x] >= '0' && file[x] <= '9')
 			n++;
-		if (file[x] == ' ' || file[x] == '\t'
-			|| file[x] == '\n' || file[x] == ',')
-			return (n);
+		else
+			return (-1);
 	}
-	return (-1);
+	return (n);
 }
 
 int	map_size(char *file)

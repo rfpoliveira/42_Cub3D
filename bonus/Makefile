@@ -8,7 +8,7 @@ floodfill_utils.c rgb_utils.c collisions.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
-NAME = cub3d
+NAME = cub3D
 
 BUILD_PATH = .build
 SRCS_PATH = ./srcs
